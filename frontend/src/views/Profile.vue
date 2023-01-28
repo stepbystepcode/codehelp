@@ -9,20 +9,13 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from 'axios';
-import { useStore } from "vuex";
-const store = useStore();
-// let email = ref("");
-if (store.state.key != "") {
-    axios.get('http://47.93.214.2:3000/api/profile', {
-        headers: {
-            'Authorization': 'Bearer ' + store.state.key
-        }
-    }).then(res => { console.log(res.data); if (res.data.username) { store.commit('login', res.data); } })
-
-} else {
+import store from '../store/index'
+import isAuth from "../store/auth";
+// import { useStore } from "vuex";
+// const store = useStore();
+if (!isAuth)
     window.location.href = "/users/login"
-}
+
 </script>
 
 <style lang="scss" scoped>
