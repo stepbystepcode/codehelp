@@ -7,8 +7,8 @@
       <input type="text" name="" id="" placeholder="搜索问题...">
       <a v-if="!store.state.isLogin" href="/users/login">登录</a>
       <a v-if="!store.state.isLogin" href="/users/signup">注册</a>
-      <img v-if="store.state.isLogin" @click="store.commit('login')" class="avatar" src="../assets/img/avatar.svg"
-        alt="avatar">
+      <img v-if="store.state.isLogin" onclick="window.location.replace('/users/d')" class="avatar"
+        src="../assets/img/avatar.svg" alt="avatar">
     </div>
   </header>
 </template>

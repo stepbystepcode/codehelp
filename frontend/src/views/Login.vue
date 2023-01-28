@@ -31,7 +31,7 @@ if (store.state.key != "") {
     headers: {
       'Authorization': 'Bearer ' + store.state.key
     }
-  }).then(res => { console.log(res); if (res.data.username) { store.commit('login'); } })
+  }).then(res => { console.log(res); if (res.data.username) { store.commit('login'); window.location = '/' } })
 
 }
 let submit = () => {
