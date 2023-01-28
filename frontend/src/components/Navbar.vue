@@ -16,12 +16,15 @@
 
 <script setup>
 import { RouterLink } from "vue-router";
-import { onMounted } from "vue";
-
-onMounted(() => {
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute()
+watch(route, () => {
   if (window.location.href.includes('users'))
     document.querySelector('ul').children[2].children[0].classList.add('router-link-active');
 })
+
+
 </script>
 
 <style lang="scss" scoped>

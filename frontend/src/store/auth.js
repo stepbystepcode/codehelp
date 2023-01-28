@@ -14,7 +14,7 @@ const isAuth = () => {
             if (res.data.username) {
                 store.commit('login', res.data);
                 return true
-            } else return false
+            } else { store.commit('logout'); return false}
         })
 
     } else return false

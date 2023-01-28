@@ -7,14 +7,17 @@
       <input type="text" name="" id="" placeholder="搜索问题...">
       <a v-if="!store.state.isLogin" href="/users/login">登录</a>
       <a v-if="!store.state.isLogin" href="/users/signup">注册</a>
-      <img v-if="store.state.isLogin" onclick="window.location.replace('/users/d')" class="avatar"
-        src="../assets/img/avatar.svg" alt="avatar">
+      <img v-if="store.state.isLogin" @click="router.push('/users/'+store.state.user.name)" class="avatar" src="../assets/img/avatar.svg"
+        alt="avatar">
     </div>
   </header>
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import isAuth from "../store/auth";
+const router = useRouter()
 const store = useStore();
 // console.log(store.state.isLogin);
 </script>
