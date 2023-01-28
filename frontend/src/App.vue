@@ -2,7 +2,17 @@
 import Header from "./components/Header.vue";
 import Navbar from "./components/Navbar.vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { onMounted } from "vue";
+const store = useStore();
 const route = useRoute();
+onMounted(() => {
+  window.addEventListener('unload', saveState())
+})
+
+let saveState = ()=>{
+  window.sessionStorage.setItem('state',JSON.stringify(store.state))
+}
 </script>
 
 <template>

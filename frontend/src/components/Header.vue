@@ -5,17 +5,18 @@
       <img class="logo" onclick="window.location='/'" src="../assets/img/logo.svg" alt="logo">
       <img class="search-icon" src="../assets/img/search.svg" alt="">
       <input type="text" name="" id="" placeholder="搜索问题...">
-      <a href="/users/login">登录</a>
-      <a href="/users/signup">注册</a>
-      <img class="avatar" src="../assets/img/avatar.svg" alt="avatar">
+      <a v-if="!store.state.isLogin" href="/users/login">登录</a>
+      <a v-if="!store.state.isLogin" href="/users/signup">注册</a>
+      <img v-if="store.state.isLogin" @click="store.commit('login')" class="avatar" src="../assets/img/avatar.svg"
+        alt="avatar">
     </div>
   </header>
 </template>
 
-<script>
-export default {
-  name: "Navbar"
-}
+<script setup>
+import { useStore } from "vuex";
+const store = useStore();
+// console.log(store.state.isLogin);
 </script>
 
 <style scoped lang="scss">
@@ -36,6 +37,7 @@ header {
     align-items: center;
     max-width: 1264px;
     width: 100%;
+
     a {
       border: 1px solid #7aa7c7;
       background-color: #e1ecf4;
@@ -51,7 +53,7 @@ header {
         background: #b3d3ea;
       }
 
-      & + a {
+      &+a {
         background: #0a95ff;
         color: #fff;
 

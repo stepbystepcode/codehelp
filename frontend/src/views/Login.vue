@@ -19,24 +19,42 @@
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
+import { useStore } from "vuex";
 import swal from 'sweetalert';
+const store = useStore();
 let un = ref("");
 let pw = ref("");
 let savetoken = ref("")
 // let email = ref("");
+let islogin = ref(false)
+if (store.state.key != "") {
+  axios.get('http://47.93.214.2:3000/api/profile', {
+    headers: {
+      'Authorization': 'Bearer ' + store.state.key
+    }
+  }).then(res => { console.log(res); if (res.data.username) { store.commit('login'); islogin.value = true; } })
 
+}
 let submit = () => {
   const json = {
     username: un.value,
     password: pw.value,
     token: savetoken.value
   };
-  axios.post('http://47.93.214.2:3000/api/login', json, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(res => { console.log(res); swal(res.data.message, "", res.data.icon); init() });
-  init()
+  if (un.value != "" && pw.value != "") {
+    axios.post('http://47.93.214.2:3000/api/login', json, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      if (res.data.user._id) {
+        window.localStorage.setItem('key', res.data.token);
+        store.commit('setKey', res.data.token);
+      };
+      swal(res.data.message, "", res.data.icon); init();
+    });
+    init()
+  }
 }
 
 let init = () => {
@@ -54,7 +72,6 @@ init()
 </script>
 
 <style lang="scss" scoped>
-
 .container {
   display: flex;
   justify-content: center;
