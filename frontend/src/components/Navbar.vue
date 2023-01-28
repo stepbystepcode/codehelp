@@ -20,7 +20,7 @@ import { onMounted } from "vue";
 
 onMounted(() => {
   if (window.location.href.includes('users'))
-    document.querySelector('ul').children[2].classList.add('router-link-active');
+    document.querySelector('ul').children[2].children[0].classList.add('router-link-active');
 })
 </script>
 

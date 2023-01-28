@@ -11,8 +11,6 @@
 import { ref } from "vue";
 import store from '../store/index'
 import isAuth from "../store/auth";
-// import { useStore } from "vuex";
-// const store = useStore();
 if (!isAuth)
     window.location.href = "/users/login"
 
