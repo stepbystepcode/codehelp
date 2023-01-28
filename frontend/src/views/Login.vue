@@ -26,13 +26,12 @@ let un = ref("");
 let pw = ref("");
 let savetoken = ref("")
 // let email = ref("");
-let islogin = ref(false)
 if (store.state.key != "") {
   axios.get('http://47.93.214.2:3000/api/profile', {
     headers: {
       'Authorization': 'Bearer ' + store.state.key
     }
-  }).then(res => { console.log(res); if (res.data.username) { store.commit('login'); islogin.value = true; } })
+  }).then(res => { console.log(res); if (res.data.username) { store.commit('login'); } })
 
 }
 let submit = () => {

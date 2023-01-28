@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken')
 const axios = require('axios')
 const fs = require('fs');
 const cors = require('cors');
+const SECRET = process.env.SECRET;
 app.use(cors()).use(express.json())
 app.get('/api/questions', (req, res) => {
-	fs.readFile('/root/server/data.json', (err, data) => {
+	fs.readFile('/root/codehelp/server/data.json', (err, data) => {
 		res.json(JSON.parse(data));
 	})
 })
@@ -54,7 +55,7 @@ app.post('/api/login', async (req, res) => {
 					username: req.body.username
 				})
 				if (!user) {
-					return res.status(422).send({ message: '用户名不存在', success: false })
+					res.send({ message: '用户名不存在', success: false })
 				}
 				const isPasswordValid = require('bcrypt').compareSync(
 					req.body.password,
@@ -63,15 +64,16 @@ app.post('/api/login', async (req, res) => {
 				if (!isPasswordValid) {
 					//return res.status(422).send({ message: '密码错误' })
 					res.send({ message: '密码错误', icon: "error" })
-				} else { res.send({ message: '登录成功', icon: "success" }) }
-				const jwt = require('jsonwebtoken')
+				} //else { res.send({ message: '登录成功', icon: "success" }) }
+
 				const token = jwt.sign({
 					id: String(user._id),
 				}, SECRET)
-				// res.send({
-				// 	user,
-				// 	token
-				// });
+				res.send({
+					message: '登录成功', icon: "success",
+					user,
+					token
+				});
 			}
 		})
 })
@@ -84,26 +86,9 @@ const auth = async (req, res, next) => {
 }
 
 app.get('/api/profile', auth, async (req, res) => {
-
 	res.send(req.user)
 })
 
 app.listen(3000, () => {
 	console.log('listening on port 3000.');
 });
-
-
-const handleSend = (req, res) => {
-	const secret_key = "6LfLxjEkAAAAAN9SQ6dmt5RJknZqkmDcQJNrFcz0";
-	const token = req.body.token;
-	const url = `https://www.recaptcha.net/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
-	axios.post(url)
-		.then(response => {
-			if (response.data.success) {
-
-			}
-		})
-
-};
-
-app.post('/send', handleSend);
