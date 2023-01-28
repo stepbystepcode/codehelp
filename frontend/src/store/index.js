@@ -11,14 +11,16 @@ const state =
 
 
 const mutations = {
-    login(state, username) {
-        state.user.name = username;
+    login(state, user) {
+        state.user.name = user.username;
         state.isLogin = true
     },
     logout(state) {
         state.key = "";
         window.localStorage.removeItem('key')
+        state.user = {}
         state.isLogin = false
+        window.location.href = '/'
     },
     setKey(state, key) {
         state.key = key;

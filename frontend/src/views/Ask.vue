@@ -2,7 +2,6 @@
     <div class="container">
         <div class="content">
             {{ store.state.user.name }}
-            <button @click="store.commit('logout')">退出登录</button>
         </div>
     </div>
 </template>
@@ -18,10 +17,10 @@ if (store.state.key != "") {
         headers: {
             'Authorization': 'Bearer ' + store.state.key
         }
-    }).then(res => { console.log(res.data); if (res.data.username) { store.commit('login', res.data); } })
+    }).then(res => { console.log(res); if (res.data.username) { store.commit('login', res.data.username); } })
 
 } else {
-    window.location.href = "/users/login"
+    window.location = "/users/login"
 }
 </script>
 
