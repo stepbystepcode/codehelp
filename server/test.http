@@ -23,7 +23,7 @@ post {{url}}/login
 
 ###
 get {{url}}/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDRkMGEyM2Q2ZDUxMzJkY2EzYTBlMyIsImlhdCI6MTY3NDg5Mjg4OH0._M4VdPKdfmQ1XDfRgCB_fFW0mvnj4dW1AwTFczt6PXY
+Authorization: Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDRkMGEyM2Q2ZDUxMzJkY2EzYTBlMyIsImlhdCI6MTY3NDg5Mjg4OH0._M4VdPKdfmQ1XDfRgCB_fFW0mvnj4dW1AwTFczt6PXY
 ###
 post http://47.93.214.2:3000/send
 {{json}}
