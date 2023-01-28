@@ -1,0 +1,35 @@
+@url=http://47.93.214.2:3000/api
+@json=Content-Type: application/json
+
+get {{url}}/users
+###
+
+post {{url}}/signup
+{{json}}
+
+{
+    "username":"bhdskc",
+    "password":"bbbb",
+    "token":"03AFY_a8X4LvPSPa_XfXkL7yApSk3HMv6Z8kfsAfbTM9DtHHLVFujiGLUu0kLHiFWHoF5jf88bsFTwLDnBOJQbwJah5teUr7EuC81QNt"
+}
+###
+post {{url}}/login
+{{json}}
+
+{
+    "username":"abcd",
+    "password":"1235"
+}
+
+###
+get {{url}}/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDNkYjk2NzE3OWI1NDA1Mjk2YTlmNCIsImlhdCI6MTY3NDgzMDIyOX0.8J7oiGwmYZdKbUBjf9f1EdlGo1wlxZUKVvXGkvSVnnM
+
+###
+post http://47.93.214.2:3000/send
+{{json}}
+
+{
+    "username":"abcd",
+    "password":"1235",
+}
