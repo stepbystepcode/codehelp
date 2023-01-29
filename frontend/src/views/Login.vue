@@ -63,7 +63,10 @@ let submit = () => {
         console.log(res.data);
         auth()
       };
-      swal(res.data.message, "", res.data.icon); init();
+      if (res.data.icon == 'success') {
+        swal(res.data.message, "", res.data.icon); router.push('/');
+      }
+      else { swal(res.data.message, "", res.data.icon); init(); }
     });
     init()
   }
