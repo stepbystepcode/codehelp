@@ -1,8 +1,9 @@
 <template>
     <div class="container">
         <div class="content">
-            问题：<input type="text">
-            
+            <input type="text" v-model="title">
+            <mavon-editor v-model="content" />
+            <button @click="submint()">提交</button>
         </div>
     </div>
 </template>
@@ -10,18 +11,20 @@
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
-import { useStore } from "vuex";
-const store = useStore();
-// let email = ref("");
-if (store.state.key != "") {
-    axios.get('http://47.93.214.2:3000/api/profile', {
-        headers: {
-            'Authorization': 'Bearer ' + store.state.key
-        }
-    }).then(res => { console.log(res); if (res.data.username) { store.commit('login', res.data.username); } })
-
-} else {
-    window.location = "/users/login"
+let title = ref("");
+let content = ref("");
+let submint = () => {
+    if (content.value != "" && title.value != "") {
+        const json = {
+            content: content.value,
+            title: title.value
+        };
+        axios.post('http://47.93.214.2:3000/api/ask', json, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
 }
 </script>
 

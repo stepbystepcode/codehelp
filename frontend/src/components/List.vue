@@ -1,5 +1,6 @@
 <template>
   <div class="list-warp">
+    <RouterLink to="/ask"><button>提问</button></RouterLink>
     <div v-for="item in data" :key="item" class="item">
       <div class="info">
         <span>{{ item.votes }} 热度</span>
