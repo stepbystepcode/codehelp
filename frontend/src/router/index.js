@@ -7,6 +7,7 @@ const routes = [
     { path: '/users/signup', name: 'Signup', component: () => import('../views/Signup.vue') },
     { path: '/users/login', name: 'Login', component: () => import('../views/Login.vue') },
     { path: '/users/:username', name: 'Profile', component: () => import('../views/Profile.vue') },
+    { path: '/users', name: 'Users', component: () => import('../views/Users.vue') },
     { path: '/:catchAll(.*)', name: '404', component: () => import('../views/404.vue') }
 ]
 

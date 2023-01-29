@@ -27,8 +27,11 @@ let saveState = ()=>{
 
 
 .container {
+  margin: 0 auto;
+  width: 100vw;
   margin-top: 50px;
   height: 100%;
   display: flex;
+  max-width: 1264px;
 }
 </style>

@@ -34,6 +34,7 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
+  width: 100vw;
 
   .item {
     display: flex;

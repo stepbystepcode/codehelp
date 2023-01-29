@@ -1,3 +1,6 @@
 .grecaptcha-badge {
   visibility: hidden !important;
 }
+#app{
+  width: 100vw;
+}

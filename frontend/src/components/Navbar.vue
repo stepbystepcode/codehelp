@@ -22,6 +22,8 @@ const route = useRoute()
 watch(route, () => {
   if (window.location.href.includes('users'))
     document.querySelector('ul').children[2].children[0].classList.add('router-link-active');
+  else
+    document.querySelector('ul').children[2].children[0].classList.remove('router-link-active');
 })
 
 
@@ -29,7 +31,7 @@ watch(route, () => {
 
 <style lang="scss" scoped>
 nav {
-  width: 164px;
+  min-width: 164px;
   border-right: 2px solid #0c0d0e0d;
   display: flex;
 
