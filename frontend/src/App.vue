@@ -4,28 +4,33 @@ import Navbar from "./components/Navbar.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted } from "vue";
-const store = useStore();
+import auth from './store/auth'
+import store from "./store";
 const route = useRoute();
 onMounted(() => {
-  window.addEventListener('unload', saveState())
+  if (!store.state.isAuth && window.localStorage.getItem('key') != null) {
+    auth()
+  }
 })
+// onMounted(() => {
+//   window.addEventListener('unload', saveState())
+// })
 
-let saveState = ()=>{
-  window.sessionStorage.setItem('state',JSON.stringify(store.state))
-}
+// let saveState = ()=>{
+//   window.sessionStorage.setItem('state',JSON.stringify(store.state))
+// }
 </script>
 
 <template>
   <Header />
   <div class="container">
-    <Navbar v-if="!(route.path.toString().includes('/users/login') || route.path.toString().includes('/users/signup'))" />
+    <Navbar
+      v-if="!(route.path.toString().includes('/users/login') || route.path.toString().includes('/users/signup'))" />
     <router-view></router-view>
   </div>
 </template>
 
 <style scoped>
-
-
 .container {
   margin: 0 auto;
   width: 100vw;

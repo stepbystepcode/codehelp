@@ -10,9 +10,6 @@
 <script setup>
 import { ref } from "vue";
 import store from '../store/index'
-import isAuth from "../store/auth";
-if (!isAuth)
-    window.location.href = "/users/login"
 
 </script>
 
