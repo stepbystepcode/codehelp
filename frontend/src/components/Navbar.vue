@@ -38,9 +38,14 @@ watch(route, () => {
 
 <style lang="scss" scoped>
 nav {
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+
   min-width: 164px;
   border-right: 2px solid #0c0d0e0d;
   display: flex;
+  z-index: 9;
 
   ul {
     position: relative;

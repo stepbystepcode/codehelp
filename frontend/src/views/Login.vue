@@ -26,14 +26,17 @@ let un = ref("");
 let pw = ref("");
 let savetoken = ref("")
 // let email = ref("");
-if (store.state.key != "") {
-  axios.get('http://47.93.214.2:3000/api/profile', {
-    headers: {
-      'Authorization': 'Bearer ' + store.state.key
-    }
-  }).then(res => { console.log(res); if (res.data.username) { store.commit('login', res.data.username); window.location = '/' } })
+let auth = () => {
+  if (store.state.key != "") {
+    axios.get('http://47.93.214.2:3000/api/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + store.state.key
+      }
+    }).then(res => { console.log(res); if (res.data.username) { store.commit('login', res.data.username); window.location = '/' } })
 
+  }
 }
+auth()
 let submit = () => {
   const json = {
     username: un.value,
@@ -46,9 +49,11 @@ let submit = () => {
         'Content-Type': 'application/json'
       }
     }).then(res => {
-      if (res.data.user._id) {
+      if ("user" in res.data) {
         window.localStorage.setItem('key', res.data.token);
         store.commit('setKey', res.data.token);
+        console.log(res.data);
+        auth()
       };
       swal(res.data.message, "", res.data.icon); init();
     });

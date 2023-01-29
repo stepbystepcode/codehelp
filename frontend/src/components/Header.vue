@@ -2,13 +2,13 @@
 
   <header>
     <div>
-      <img class="logo" onclick="window.location='/'" src="../assets/img/logo.svg" alt="logo">
+      <img class="logo" @click="router.push('/')" src="../assets/img/logo.svg" alt="logo">
       <img class="search-icon" src="../assets/img/search.svg" alt="">
       <input type="text" name="" id="" placeholder="搜索问题...">
       <a v-if="!store.state.isLogin" href="/users/login">登录</a>
       <a v-if="!store.state.isLogin" href="/users/signup">注册</a>
-      <img v-if="store.state.isLogin" @click="router.push('/users/'+store.state.user.name)" class="avatar" src="../assets/img/avatar.svg"
-        alt="avatar">
+      <img v-if="store.state.isLogin" @click="router.push('/users/' + store.state.user.name)" class="avatar"
+        src="../assets/img/avatar.svg" alt="avatar">
     </div>
   </header>
 </template>
@@ -33,10 +33,11 @@ header {
   justify-content: center;
   align-items: center;
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06), 0 3px 8px hsla(0, 0%, 0%, 0.09);
+  z-index: 99;
 
   div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-width: 1264px;
     width: 100%;
@@ -79,6 +80,12 @@ header {
       height: 18px;
       position: relative;
       left: 2em;
+
+      @media only screen and (max-width: 640px) {
+        position: fixed;
+        right: 4em;
+        left: unset;
+      }
     }
 
     input {
@@ -87,6 +94,10 @@ header {
       outline: rgb(107, 137, 147);
       border: 1px solid #babfc4;
       border-radius: 3px;
+
+      @media only screen and (max-width: 640px) {
+        display: none;
+      }
 
       &:focus {
         border: 1px solid #6bbbf7;

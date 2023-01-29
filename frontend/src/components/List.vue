@@ -8,10 +8,13 @@
         <span>{{ item.views }} 浏览</span>
       </div>
       <div class="content">
-        <span class="title" @click="router.push('/questions/' + item._id + '/' + pinyin.getFullChars(item.title))">{{ item.title }}</span>
+        <span class="title" @click="router.push('/questions/' + item._id + '/' + pinyin.getFullChars(item.title))">{{
+          item.title
+        }}</span>
         <div class="meta">
           <div><span class="tag" v-for="tag in item.tags">{{ tag }} </span></div>
-          <div class="meta-minimal"><img :src="item.avatar" alt="avatar"><span>{{ item.userName }} {{ item.modified }} 修改</span>{{ item.time }}</div>
+          <div class="meta-minimal"><img :src="item.user.avatar" alt="avatar"><span>{{ item.user.name }} {{ item.modified }}
+              修改</span>&nbsp;{{ time(item.time) }}</div>
         </div>
       </div>
     </div>
@@ -22,9 +25,22 @@
 import axios from 'axios';
 import pinyin from 'js-pinyin'
 import { useRouter } from 'vue-router';
-import {ref, reactive} from "vue";
+import { ref, computed } from "vue";
 const router = useRouter();
 let data = ref([]);
+
+const time = (after_time)=>{
+  const now_time = new Date().getTime()
+  const hm = parseInt((now_time - after_time) / 1000)//毫秒
+  const day=parseInt(hm / 60 / 60 / 24);
+  const hour=parseInt(hm / 60 / 60 % 24);
+  const min=parseInt(hm / 60 % 60);
+  const m=parseInt(hm % 60);
+  if (day) return day + "天前"; else if (hour) return hour + "小时前";else if (min)return min+"分钟前";else return m+"秒前";
+};
+
+
+
 axios("http://47.93.214.2:3000/api/questions").then(res => {
   data.value = res.data;
   console.log(res.data);
@@ -32,12 +48,35 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
 </script>
 
 <style lang="scss" scoped>
-
 .list-warp {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
   width: 100vw;
+
+  a {
+    display: flex;
+    justify-content: end;
+    text-decoration: none;
+    button {
+
+      border: 1px solid #7aa7c7;
+      box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.7);
+      padding: 10px;
+      font-size: .9em;
+      color: #39739d;
+      margin: 0 2.3em;
+      text-decoration: none;
+      border-radius: 3px;
+
+      background: #0a95ff;
+      color: #fff;
+
+      &:hover {
+        background: #0074cc;
+      }
+    }
+  }
 
   .item {
     display: flex;
@@ -45,7 +84,7 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
     padding: 16px;
 
     .info {
-      color:#6a737c;
+      color: #6a737c;
       width: 108px;
       display: flex;
       align-items: flex-end;
@@ -65,8 +104,9 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
       .title {
         color: #0074cc;
         margin-bottom: .3rem;
-        &:hover{
-          color:#0a95ff;
+
+        &:hover {
+          color: #0a95ff;
           cursor: pointer;
         }
       }
@@ -76,8 +116,10 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
         flex-direction: row;
         justify-content: space-between;
         margin: 1em 0;
+        flex-wrap: wrap;
+        row-gap: 1em;
 
-        div{
+        div {
           .tag {
             padding: .4em;
             margin: .3em;
@@ -86,10 +128,13 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
             font-size: .8em;
           }
         }
-        .meta-minimal{
+
+        .meta-minimal {
           display: flex;
           align-items: center;
-          img{
+          margin-left: auto;
+
+          img {
             width: 18px;
             height: 18px;
           }
