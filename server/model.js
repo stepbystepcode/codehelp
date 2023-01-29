@@ -22,4 +22,11 @@ const QuestionSchema = new mongoose.Schema({
 
 const Question = mongoose.model('Question', QuestionSchema);
 
-module.exports = { User, Question }
+const ContentSchema = new mongoose.Schema({
+    question_id:String,
+    content:String
+});
+
+const Content = mongoose.model('Content', ContentSchema);
+
+module.exports = { User, Question, Content }

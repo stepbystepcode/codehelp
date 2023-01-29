@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { User, Question } = require('./model.js')
+const { User, Question, Content } = require('./model.js')
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken')
@@ -91,6 +91,19 @@ const auth = async (req, res, next) => {
 
 app.get('/api/profile', auth, async (req, res) => {
 	res.send(req.user)
+})
+
+app.get('/api/detail', async (req, res) => {
+	const { query } = req;
+	const content = await Content.findOne({ question_id: query.id })
+	Question.findByIdAndUpdate(query.id, { $inc: { views: 1 } }, (err, question) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(content)
+		}
+	});
+	
 })
 
 app.listen(3000, () => {

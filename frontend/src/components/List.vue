@@ -74,6 +74,7 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin: 1em 0;
 
         div{
           .tag {
