@@ -7,7 +7,7 @@
         <span>{{ item.views }} 浏览</span>
       </div>
       <div class="content">
-        <span class="title">{{ item.title }}</span>
+        <span class="title" @click="router.push('/questions/' + item._id + '/' + pinyin.getFullChars(item.title))">{{ item.title }}</span>
         <div class="meta">
           <div><span class="tag" v-for="tag in item.tags">{{ tag }} </span></div>
           <div class="meta-minimal"><img :src="item.avatar" alt="avatar"><span>{{ item.userName }} {{ item.modified }} 修改</span>{{ item.time }}</div>
@@ -19,8 +19,10 @@
 
 <script setup>
 import axios from 'axios';
+import pinyin from 'js-pinyin'
+import { useRouter } from 'vue-router';
 import {ref, reactive} from "vue";
-
+const router = useRouter();
 let data = ref([]);
 axios("http://47.93.214.2:3000/api/questions").then(res => {
   data.value = res.data;
@@ -62,6 +64,10 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
       .title {
         color: #0074cc;
         margin-bottom: .3rem;
+        &:hover{
+          color:#0a95ff;
+          cursor: pointer;
+        }
       }
 
       .meta {

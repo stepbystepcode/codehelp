@@ -5,10 +5,10 @@
         <RouterLink to="/">首页</RouterLink>
       </li>
       <li>
-        <RouterLink to="/questions">问题</RouterLink>
+        <RouterLink to="/questions" class="question">问题</RouterLink>
       </li>
       <li>
-        <RouterLink to="/users">用户</RouterLink>
+        <RouterLink to="/users" class="user">用户</RouterLink>
       </li>
     </ul>
   </nav>
@@ -20,10 +20,17 @@ import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute()
 watch(route, () => {
-  if (window.location.href.includes('users'))
-    document.querySelector('ul').children[2].children[0].classList.add('router-link-active');
-  else
-    document.querySelector('ul').children[2].children[0].classList.remove('router-link-active');
+  setTimeout(() => {
+    if (window.location.href.includes('users'))
+      document.querySelector('.user').classList.add('router-link-active');
+    else
+      document.querySelector('.user').classList.remove('router-link-active');
+    if (window.location.href.includes('questions'))
+      document.querySelector('.question').classList.add('router-link-active');
+    else
+      document.querySelector('.question').classList.remove('router-link-active');
+  }, 10);
+
 })
 
 
