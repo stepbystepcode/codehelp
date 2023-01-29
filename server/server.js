@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { User } = require('./model.js')
+const { User, Question } = require('./model.js')
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken')
@@ -8,14 +8,18 @@ const fs = require('fs');
 const cors = require('cors');
 const SECRET = process.env.SECRET;
 app.use(cors()).use(express.json())
-app.get('/api/questions', (req, res) => {
-	fs.readFile('/root/codehelp/server/data.json', (err, data) => {
-		res.json(JSON.parse(data));
-	})
-})
+// app.get('/api/questions', (req, res) => {
+// 	fs.readFile('/root/codehelp/server/data.json', (err, data) => {
+// 		res.json(JSON.parse(data));
+// 	})
+// })
 app.get('/api/users', async (req, res) => {
 	const users = await User.find();
 	res.send(users);
+})
+app.get('/api/questions', async (req, res) => {
+	const questions = await Question.find();
+	res.send(questions);
 })
 app.post('/api/signup', async (req, res) => {
 	const secret_key = process.env.SECRET_KEY;

@@ -1,6 +1,6 @@
 <template>
   <div class="list-warp">
-    <div v-for="item in data.list" :key="item" class="item">
+    <div v-for="item in data" :key="item" class="item">
       <div class="info">
         <span>{{ item.votes }} 热度</span>
         <span>{{ item.answers }} 回答</span>

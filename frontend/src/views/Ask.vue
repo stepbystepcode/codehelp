@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div class="content">
-            {{ store.state.user.name }}
+            问题：<input type="text">
+            
         </div>
     </div>
 </template>

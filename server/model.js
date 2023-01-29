@@ -12,4 +12,14 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = { User }
+const QuestionSchema = new mongoose.Schema({
+    votes:Number,
+    answers:Number,
+    views:Number,
+    title: String,
+    tags: Array
+});
+
+const Question = mongoose.model('Question', QuestionSchema);
+
+module.exports = { User, Question }

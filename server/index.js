@@ -17,6 +17,3 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.listen(80, () => {
 	console.log('listening on port 80.');
 });
-//mongoose.connect('mongodb://localhost/codehelp',{useNewUrlParser:true})
-//	.then(()=>console.log('success'))
-//	.catch(err=>console.log(err,'faild'))
