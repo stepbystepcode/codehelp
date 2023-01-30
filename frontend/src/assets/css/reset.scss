@@ -1,0 +1,278 @@
+.content-cell{
+/* Reset
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Body
+=============================================================================*/
+
+body {
+  font-family: "Lucida Grande", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif!important;
+  font-size: 14px!important;
+  line-height: 1.6!important;
+  color: #333!important;
+  background-color: #fff!important;
+  margin: 0 auto!important;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Blocks
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0!important;
+}
+
+/* Headers
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold!important;
+  -webkit-font-smoothing: antialiased!important;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit!important;
+}
+
+h1 {
+  font-size:2em!important;
+  color:#000!important;
+}
+
+h2 {
+  font-size:1.6em!important;
+  color:#111!important;
+}
+
+h3 {
+  font-size:1.2em!important;
+  color:#222!important;
+  }
+
+h4 {
+  font-size:1em!important;
+  color:#333!important;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0!important;
+  padding-top: 0!important;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0!important;
+  padding-top: 0!important;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px!important;
+}
+
+/* Links
+=============================================================================*/
+
+a {
+  color:#dd0000!important;
+  text-decoration:none!important;
+}
+a:hover {
+  color:#333333!important;
+  text-decoration:underline!important;
+}
+
+/* Lists
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px!important;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px!important;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0!important;
+}
+
+dl {
+  padding: 0!important;
+}
+
+dl dt {
+  font-size: 14px!important;
+  font-weight: bold!important;
+  font-style: italic!important;
+  padding: 0!important;
+  margin: 15px 0 5px!important;
+}
+
+dl dt:first-child {
+  padding: 0!important;
+}
+
+dl dt>:first-child {
+  margin-top: 0px!important;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px!important;
+}
+
+dl dd {
+  margin: 0 0 15px!important;
+  padding: 0 15px!important;
+}
+
+dl dd>:first-child {
+  margin-top: 0px!important;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px!important;
+}
+
+/* Code
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px!important;
+  font-family: Consolas, "Liberation Mono", Courier, monospace!important;
+}
+
+code, tt {
+  margin: 0 0px!important;
+  padding: 0px 0px!important;
+  white-space: nowrap!important;
+  border: 1px solid #eaeaea!important;
+  background-color: #f8f8f8!important;
+  border-radius: 3px!important;
+}
+
+pre>code {
+  margin: 0!important;
+  padding: 0!important;
+  white-space: pre!important;
+  border: none!important;
+  background: transparent!important;
+  word-wrap: break-word!important;
+}
+
+pre {
+  font-size: 13px!important;
+  line-height: 19px!important;
+  overflow: auto!important;
+  padding: 10px 15px!important;
+  border-radius: 3px!important;
+}
+
+pre code, pre tt {
+  background-color: transparent!important;
+  border: none!important;
+}
+
+kbd {
+    -moz-border-bottom-colors: none!important;
+    -moz-border-left-colors: none!important;
+    -moz-border-right-colors: none!important;
+    -moz-border-top-colors: none!important;
+    background-color: #DDDDDD!important;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD)!important;
+    background-repeat: repeat-x!important;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD!important;
+    border-image: none!important;
+    border-radius: 2px 2px 2px 2px!important;
+    border-style: solid!important;
+    border-width: 1px!important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+    line-height: 10px!important;
+    padding: 1px 4px!important;
+}
+
+/* Quotes
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD!important;
+  padding: 0 15px!important;
+  color: #777!important;
+}
+
+blockquote>:first-child {
+  margin-top: 0px!important;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px!important;
+}
+
+/* Horizontal Rules
+=============================================================================*/
+
+hr {
+  clear: both!important;
+  margin: 15px 0!important;
+  height: 0px!important;
+  overflow: hidden!important;
+  border: none!important;
+  background: transparent!important;
+  border-bottom: 2px solid #ddd!important;
+  padding: 0!important;
+}
+
+/* Table
+=============================================================================*/
+
+table {
+  -moz-box-sizing: border-box!important;
+  box-sizing: border-box!important;
+  margin: 1em 0!important;
+  width: 100%!important;
+  max-width: 100%!important;
+  border-width: 1px!important; 
+  border-style: solid!important;
+  background-color: transparent!important; 
+}
+
+table, table tr, table tr td, table tr th {
+  border-color: #e5e5e5!important; 
+} 
+
+table th {
+  color: #666666!important; 
+  background-color: #fdfdfd!important; 
+} 
+
+tr th, tr td {  
+  padding: 6px 13px!important;    
+}
+
+table tbody > tr:nth-child(odd) > td,table tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9!important; 
+}
+
+/* Images
+=============================================================================*/
+
+img {
+  max-width: 100%!important;
+}
+}

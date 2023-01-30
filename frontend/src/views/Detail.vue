@@ -12,25 +12,27 @@
                 <div v-if="index == 1">{{ content.length - 1 }}个回答</div>
                 <div class="vote-cell"><img src="../assets/img/vote.svg" alt="">{{ item.votes }}<img
                         src="../assets/img/vote.svg" alt=""></div>
-                <div class="content-cell">{{ item.content }}
-                    <!-- <prism language="javascript">const a = b</prism> -->
+                <div class="content-cell"><Markdown :markdown="item.content"></Markdown>
                 </div>
             </div>
 
 
-            <mavon-editor v-model="postContent" />
+            <!-- <mavon-editor v-model="postContent" /> -->
             <button @click="check()">提交</button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import '../assets/css/reset.scss'
+import { ref,onMounted } from "vue";
 import AskBtn from "../components/AskBtn.vue";
+import Markdown from '../components/Markdown.vue'
 import store from '../store/index'
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import swal from 'sweetalert'
+
 const router = useRouter();
 const content = ref([]);
 let postContent = ref("");
@@ -57,9 +59,13 @@ const answer = () => {
     });
     swal('回答成功').then(res => { window.location.reload() })
 }
+
 </script>
 
 <style lang="scss" scoped>
+code{
+    font-family:monospace!important;
+}
 .container {
     .content {
         padding: 24px;
@@ -91,6 +97,7 @@ const answer = () => {
             .content-cell {
                 display: flex;
                 flex: 1;
+                flex-direction: column;
             }
         }
     }
