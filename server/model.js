@@ -13,18 +13,22 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 const QuestionSchema = new mongoose.Schema({
-    votes:Number,
-    answers:Number,
-    views:Number,
+    votes: Number,
+    answers: Number,
+    views: Number,
     title: String,
-    tags: Array
+    tags: Array,
+    time: Number,
+    user: Object,
+    modified: Number
 });
 
 const Question = mongoose.model('Question', QuestionSchema);
 
 const ContentSchema = new mongoose.Schema({
-    question_id:String,
-    content:String
+    question_id: String,
+    title: String,
+    content: String
 });
 
 const Content = mongoose.model('Content', ContentSchema);

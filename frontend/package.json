@@ -12,8 +12,10 @@
     "axios": "^1.2.5",
     "js-pinyin": "^0.1.9",
     "mavon-editor": "^3.0.0-beta",
+    "prismjs": "^1.29.0",
     "sweetalert": "^2.1.2",
     "vue": "^3.2.45",
+    "vue-prism-component": "^2.0.0",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"
   },

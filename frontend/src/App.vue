@@ -2,10 +2,10 @@
 import Header from "./components/Header.vue";
 import Navbar from "./components/Navbar.vue";
 import { useRoute } from "vue-router";
-import { useStore } from "vuex";
 import { onMounted } from "vue";
 import auth from './store/auth'
 import store from "./store";
+
 const route = useRoute();
 onMounted(() => {
   if (!store.state.isAuth && window.localStorage.getItem('key') != null) {

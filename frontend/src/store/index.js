@@ -14,7 +14,7 @@ const state =
 const mutations = {
     login(state, user) {
         state.user.name = user;
-        state.user.avatar = 'http://47.93.214.2/src/assets/img/avatar.svg'
+        state.user.avatar = '/avatar.svg'
         state.isAuth = true
     },
     logout(state) {
