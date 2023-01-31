@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-        <div class="content" v-if="content[0]">
+        <div class="content">
             <div class="title-bar">
-                <span>{{ content[0].title }}</span>
+                <span>{{ store.state.info.title }}</span>
                 <AskBtn />
             </div>
             <div class="info">
-                {{ content[0].views }}次浏览
+                {{ store.state.info.views }}次浏览
             </div>
             <div class="post-warp" v-for="(item, index) in content" :key="item">
                 <div v-if="index == 1">{{ content.length - 1 }}个回答</div>
-                <div class="vote-cell"><img src="../assets/img/vote.svg" alt="">{{ item.votes }}<img
+                <div class="vote-cell"><img src="../assets/img/vote.svg" alt="">{{ store.state.info.votes }}<img
                         src="../assets/img/vote.svg" alt=""></div>
                 <div class="content-cell">
                     <Markdown :markdown="item.content"></Markdown>
@@ -27,13 +27,14 @@
 <script setup>
 import Editor from '../components/Editor.vue'
 import '../assets/css/reset.scss'
-import { ref, reactive, onMounted } from "vue";
+import {  ref, reactive, onMounted } from "vue";
 import AskBtn from "../components/AskBtn.vue";
 import Markdown from '../components/Markdown.vue'
 import store from '../store/index'
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import swal from 'sweetalert'
+
 
 const router = useRouter();
 const content = ref([]);
@@ -91,6 +92,7 @@ code {
                 display: flex;
                 flex-direction: column;
                 padding-right: 16px;
+                align-items: center;
 
                 :nth-child(2) {
                     transform: rotate(180deg);

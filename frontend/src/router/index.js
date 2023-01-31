@@ -9,7 +9,7 @@ const routes = [
     { path: '/users/login', name: 'Login', component: () => import('../views/Login.vue') },
     { path: '/ask', name: 'Ask', component: () => import('../views/Ask.vue'), beforeEnter: (from, to, next) => { if(store.state.user.name)next();else next('/users/login') } },
     { path: '/users/:username', name: 'Profile', component: () => import('../views/Profile.vue') },
-    { path: '/questions/:catchAll(.*)', name: 'Question', component: () => import('../views/Detail.vue') },
+    { path: '/questions/:id/:title', name: 'Question', component: () => import('../views/Detail.vue') },
     { path: '/users', name: 'Users', component: () => import('../views/Users.vue') },
     { path: '/:catchAll(.*)', name: '404', component: () => import('../views/404.vue') }
 ]

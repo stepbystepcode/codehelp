@@ -1,6 +1,6 @@
 <template>
   <div class="list-warp">
-    <AskBtn/>
+    <AskBtn />
     <div v-for="item in data" :key="item" class="item">
       <div class="info">
         <span>{{ item.votes }} 热度</span>
@@ -8,12 +8,15 @@
         <span>{{ item.views }} 浏览</span>
       </div>
       <div class="content">
-        <span class="title" @click="router.push('/questions/' + item._id + '/' + pinyin.getFullChars(item.title))">{{
-          item.title
-        }}</span>
+        <span class="title"
+          @click="store.commit('setInfo',item);router.push({ path: '/questions/' + item._id + '/' + pinyin.getFullChars(item.title) })">{{
+            item.title
+          }}</span>
         <div class="meta">
           <div><span class="tag" v-for="tag in item.tags">{{ tag }} </span></div>
-          <div class="meta-minimal"><img :src="item.user.avatar" alt="avatar"><span>{{ item.user.name }} {{ item.modified }}
+          <div class="meta-minimal"><img :src="item.user.avatar" alt="avatar"><span>{{ item.user.name }} {{
+            item.modified
+          }}
               修改</span>&nbsp;{{ time(item.time) }}</div>
         </div>
       </div>
@@ -25,19 +28,19 @@
 import AskBtn from './AskBtn.vue';
 import axios from 'axios';
 import pinyin from 'js-pinyin'
+import store from '../store/index'
 import { useRouter } from 'vue-router';
 import { ref, computed } from "vue";
 const router = useRouter();
 let data = ref([]);
-
-const time = (after_time)=>{
+const time = (after_time) => {
   const now_time = new Date().getTime()
   const hm = parseInt((now_time - after_time) / 1000)//毫秒
-  const day=parseInt(hm / 60 / 60 / 24);
-  const hour=parseInt(hm / 60 / 60 % 24);
-  const min=parseInt(hm / 60 % 60);
-  const m=parseInt(hm % 60);
-  if (day > 0) return day + "天前"; else if (hour > 0) return hour + "小时前"; else if (min > 0)return min+"分钟前";else return m+"秒前";
+  const day = parseInt(hm / 60 / 60 / 24);
+  const hour = parseInt(hm / 60 / 60 % 24);
+  const min = parseInt(hm / 60 % 60);
+  const m = parseInt(hm % 60);
+  if (day > 0) return day + "天前"; else if (hour > 0) return hour + "小时前"; else if (min > 0) return min + "分钟前"; else return m + "秒前";
 };
 
 
@@ -55,7 +58,7 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
   margin-top: 2rem;
   width: 100vw;
 
-  
+
 
   .item {
     display: flex;

@@ -2,12 +2,13 @@ import { createStore } from 'vuex'
 
 const state =
     window.localStorage.getItem('key') != null ? {
-        key: window.localStorage.getItem('key'), user: {}
+        key: window.localStorage.getItem('key'), user: {}, info: {}
     } : {
 
         isAuth: false,
         key: "",
-        user: {}
+        user: {},
+        info: {}
     }
 
 
@@ -27,6 +28,9 @@ const mutations = {
     setKey(state, key) {
         state.key = key;
         state.isAuth = true
+    },
+    setInfo(state, info) {
+        state.info = info;
     }
 }
 
