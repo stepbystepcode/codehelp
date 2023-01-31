@@ -49,8 +49,8 @@ const like = (content_id, index) => {
                 if (res.data == "您已经赞过了") {
                     swal(res.data, "", "info");
                 } else {
-                    // document.querySelectorAll(".vote-cell")[index].children[0].style.filter =
-                    //     "invert(.5) sepia(1) saturate(5) hue-rotate(175deg)";
+                    document.querySelectorAll(".vote-cell")[index].children[0].style.filter =
+                        "invert(.5) sepia(1) saturate(5) hue-rotate(175deg)";
                     content.value[index].likes.push(1)
                 }
             });
