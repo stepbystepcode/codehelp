@@ -2,17 +2,19 @@
     <div class="container">
         <div class="content">
             <input type="text" v-model="title">
-            <mavon-editor v-model="content" />
+            <Editor v-model="content" />
             <input type="text" v-model="tag" @keydown.enter.prevent="handleKeydown()">
             <div v-for="tag in tags" :key="tag" class="pill">#{{ tag }}</div>
-            <button @click="submint()">提交</button>
+            <button @click="check()">提交</button>
         </div>
     </div>
 </template>
 
 <script setup>
+import Editor from '../components/Editor.vue'
 import { ref } from "vue";
 import axios from 'axios';
+import swal from 'sweetalert'
 import store from "../store";
 let title = ref("");
 let content = ref("");
@@ -24,6 +26,10 @@ const handleKeydown = () => {
         tags.value.push(tag.value)
     }
     tag.value = "";
+}
+const check = () => {
+    if (content.value == "") swal("请输入内容")
+    else submint()
 }
 let submint = () => {
     if (content.value != "" && title.value != "") {
@@ -43,6 +49,7 @@ let submint = () => {
                 'Content-Type': 'application/json'
             }
         });
+        swal('提问成功','','success').then(window.location.reload())
     }
 }
 </script>

@@ -9,7 +9,7 @@ let auth = () => {
         }).then(res => {
             console.log(res);
             if ("username" in res.data) {
-                store.commit('login', res.data.username);
+                store.commit('login', res.data);
                 // router.push('/')
             }else{
                 store.commit('logout')

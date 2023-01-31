@@ -33,5 +33,4 @@ export default {
 </script>
 
 <style>
-/* 你可以在这里引入 hljs 的 css 样式 */
 </style>

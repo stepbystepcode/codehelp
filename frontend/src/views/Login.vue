@@ -27,24 +27,6 @@ const store = useStore();
 let un = ref("");
 let pw = ref("");
 let savetoken = ref("")
-// let email = ref("");
-// let auth = () => {
-//   if (store.state.key != "") {
-//     axios.get('http://47.93.214.2:3000/api/profile', {
-//       headers: {
-//         'Authorization': 'Bearer ' + store.state.key
-//       }
-//     }).then(res => {
-
-//       console.log(res);
-//       if ("username" in res.data) {
-//         store.commit('login', res.data.username);
-//         router.push('/')
-//       }
-//     })
-//   }
-// }
-// auth()
 let submit = () => {
   const json = {
     username: un.value,
@@ -83,6 +65,7 @@ let init = () => {
       });
   });
 }
+if(store.state.isAuth)router.push('/')
 init()
 </script>
 

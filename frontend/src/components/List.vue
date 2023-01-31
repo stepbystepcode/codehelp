@@ -37,13 +37,13 @@ const time = (after_time)=>{
   const hour=parseInt(hm / 60 / 60 % 24);
   const min=parseInt(hm / 60 % 60);
   const m=parseInt(hm % 60);
-  if (day) return day + "天前"; else if (hour) return hour + "小时前";else if (min)return min+"分钟前";else return m+"秒前";
+  if (day > 0) return day + "天前"; else if (hour > 0) return hour + "小时前"; else if (min > 0)return min+"分钟前";else return m+"秒前";
 };
 
 
 
 axios("http://47.93.214.2:3000/api/questions").then(res => {
-  data.value = res.data;
+  data.value = res.data.reverse();
   console.log(res.data);
 });
 </script>

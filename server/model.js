@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
         type: String, set(val) {
             return require('bcrypt').hashSync(val, 10)
         }
-    }
+    },
+    avatar:String
 });
 
 const User = mongoose.model('User', UserSchema);

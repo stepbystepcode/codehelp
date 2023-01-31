@@ -3,19 +3,26 @@ const express = require('express');
 const app = express();
 
 //jwt token auth
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const SECRET = process.env.SECRET;
 
 //mongoose model
-const { User, Question, Content } = require('./model.js')
+const { User, Question, Content } = require('./model.js');
 
 //axios
-const axios = require('axios')
+const axios = require('axios');
 const cors = require('cors');
 
 //Create app
 app.use(cors()).use(express.json())
+
+//avatar
+const path = require('path');
+app.get('/avatar/:id', (req, res) => {
+	const imagePath = path.join(__dirname, 'img', req.params.id)
+	res.sendFile(imagePath)
+})
 
 //Signup & Login
 app.post('/api/signup', async (req, res) => {
@@ -33,8 +40,9 @@ app.post('/api/signup', async (req, res) => {
 					const user = await User.create({
 						username: req.body.username,
 						password: req.body.password,
+						avatar: 'http://47.93.214.2:3000/avatar/avatar.svg'
 					});
-					res.send({ message: '注册成功', icon: "success" ,user:user});
+					res.send({ message: '注册成功', icon: "success", user: user });
 				} else {
 					res.send({ message: '用户名已存在', icon: "error" })
 				}
@@ -143,6 +151,27 @@ app.post('/api/answer', async (req, res) => {
 		content: req.body.content,
 	});
 })
+
+//upload
+const multer = require('multer');
+
+app.post("/api/upload", (req, res) => {
+	const upload = multer({
+		storage: multer.diskStorage({
+			destination: function (req, file, cb) {
+				cb(null, "./img");
+			},
+			filename: function (req, file, cb) {
+				cb(null, 'temp');
+			}
+		})
+	});
+	upload.single("avatar")
+	console.log(req.body.fileName);
+	console.log(req.file);
+	res.send("success");
+});
+
 
 //listen on port
 app.listen(3000, () => {

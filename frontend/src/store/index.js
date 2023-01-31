@@ -13,8 +13,8 @@ const state =
 
 const mutations = {
     login(state, user) {
-        state.user.name = user;
-        state.user.avatar = '/avatar.svg'
+        state.user.name = user.username;
+        state.user.avatar = user.avatar;
         state.isAuth = true
     },
     logout(state) {

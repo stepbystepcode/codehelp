@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="content">
+        <div class="content" v-if="content[0]">
             <div class="title-bar">
                 <span>{{ content[0].title }}</span>
                 <AskBtn />
@@ -12,20 +12,22 @@
                 <div v-if="index == 1">{{ content.length - 1 }}个回答</div>
                 <div class="vote-cell"><img src="../assets/img/vote.svg" alt="">{{ item.votes }}<img
                         src="../assets/img/vote.svg" alt=""></div>
-                <div class="content-cell"><Markdown :markdown="item.content"></Markdown>
+                <div class="content-cell">
+                    <Markdown :markdown="item.content"></Markdown>
                 </div>
             </div>
 
 
-            <!-- <mavon-editor v-model="postContent" /> -->
+            <Editor v-model="postContent" />
             <button @click="check()">提交</button>
         </div>
     </div>
 </template>
 
 <script setup>
+import Editor from '../components/Editor.vue'
 import '../assets/css/reset.scss'
-import { ref,onMounted } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import AskBtn from "../components/AskBtn.vue";
 import Markdown from '../components/Markdown.vue'
 import store from '../store/index'
@@ -57,15 +59,16 @@ const answer = () => {
             'Content-Type': 'application/json'
         }
     });
-    swal('回答成功').then(res => { window.location.reload() })
+    swal('回答成功', '', 'success').then(window.location.reload())
 }
 
 </script>
 
 <style lang="scss" scoped>
-code{
-    font-family:monospace!important;
+code {
+    font-family: monospace !important;
 }
+
 .container {
     .content {
         padding: 24px;

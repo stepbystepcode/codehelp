@@ -29,7 +29,7 @@ let submit = () => {
   const json = {
     username: un.value,
     password: pw.value,
-    avatar: '/avatar.svg',
+    avatar: 'http://47.93.214.2:3000/avatar/avatar.svg',
     token: savetoken.value
   };
   axios.post('http://47.93.214.2:3000/api/signup', json, {
