@@ -9,7 +9,7 @@
       </div>
       <div class="content">
         <span class="title"
-          @click="store.commit('setInfo',item);router.push({ path: '/questions/' + item._id + '/' + pinyin.getFullChars(item.title) })">{{
+          @click="router.push({ path: '/questions/' + item._id + '/' + pinyin.getFullChars(item.title) })">{{
             item.title
           }}</span>
         <div class="meta">

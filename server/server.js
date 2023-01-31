@@ -55,7 +55,7 @@ app.post('/api/login', async (req, res) => {
 	const url = `https://www.recaptcha.net/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
 	axios.post(url)
 		.then(async response => {
-			console.log(response.data);
+			// console.log(response.data);
 			if (response.data.success) {
 				const user = await User.findOne({
 					username: req.body.username
@@ -126,7 +126,6 @@ app.get('/api/detail', async (req, res) => {
 
 //ask & answer
 app.post('/api/ask', async (req, res) => {
-	console.log(req.body);
 	const question = await Question.create({
 		title: req.body.title,
 		tags: req.body.tags,
@@ -139,8 +138,7 @@ app.post('/api/ask', async (req, res) => {
 	});
 	await Content.create({
 		question_id: question._id,
-		content: req.body.content,
-		title: req.body.title,
+		content: req.body.content
 	});
 })
 
@@ -167,10 +165,23 @@ app.post("/api/upload", (req, res) => {
 		})
 	});
 	upload.single("avatar")
-	console.log(req.body.fileName);
-	console.log(req.file);
+	// console.log(req.body.fileName);
+	// console.log(req.file);
 	res.send("success");
 });
+
+//info
+app.get('/api/info', (req, res) => {
+	const { query } = req;
+	Question.findById(query.id, function (err, result) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	})
+
+})
 
 
 //listen on port

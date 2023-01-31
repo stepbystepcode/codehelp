@@ -27,7 +27,7 @@
 <script setup>
 import Editor from '../components/Editor.vue'
 import '../assets/css/reset.scss'
-import {  ref, reactive, onMounted } from "vue";
+import { ref } from "vue";
 import AskBtn from "../components/AskBtn.vue";
 import Markdown from '../components/Markdown.vue'
 import store from '../store/index'
@@ -62,7 +62,7 @@ const answer = () => {
     });
     swal('回答成功', '', 'success').then(window.location.reload())
 }
-
+axios.get('http://47.93.214.2:3000/api/info?id=' + id.value).then(res => store.commit('setInfo',res.data))
 </script>
 
 <style lang="scss" scoped>
