@@ -8,7 +8,7 @@
       <a v-if="!store.state.isAuth" @click="router.push('/users/login')">登录</a>
       <a v-if="!store.state.isAuth" @click="router.push('/users/signup')">注册</a>
       <img v-if="store.state.isAuth" @click="router.push('/users/' + store.state.user.name)" class="avatar"
-        src="../assets/img/avatar.svg" alt="avatar">
+        :src="`http://47.93.214.2:3000/avatar/${store.state.user.name}.jpg`" alt="avatar">
     </div>
   </header>
 </template>

@@ -16,16 +16,8 @@ const cors = require("cors");
 
 //Create app
 app.use(cors());
-
-//avatar
-const path = require("path");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.get("/avatar/:id", (req, res) => {
-  const imagePath = path.join(__dirname, "img", req.params.id);
-  res.sendFile(imagePath);
-});
 
 //Signup & Login
 app.post("/api/signup", async (req, res) => {
@@ -42,7 +34,6 @@ app.post("/api/signup", async (req, res) => {
         const user = await User.create({
           username: req.body.username,
           password: req.body.password,
-          avatar: "http://47.93.214.2:3000/avatar/avatar.svg",
         });
         res.send({ message: "注册成功", icon: "success", user: user });
       } else {
@@ -168,8 +159,12 @@ app.post("/api/answer", async (req, res) => {
   );
 });
 
-//upload
+//upload & avatar
+const sharp = require("sharp");
+const fs = require("fs");
 const multer = require("multer");
+const path = require("path");
+
 const { resourceLimits } = require("worker_threads");
 const upload = multer({
   storage: multer.diskStorage({
@@ -182,38 +177,48 @@ const upload = multer({
   }),
 });
 app.post("/api/upload", upload.single("avatar"), (req, res) => {
-  const name = req.body.fileName.substring(
-    0,
-    req.body.fileName.lastIndexOf(".")
-  );
-  console.log(name);
-  User.findOneAndUpdate(
-    {
-      username: {
-        $gte: name,
-      },
-    },
-    { avatar: "http://47.93.214.2:3000/avatar/" + req.body.fileName },
-    null,
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-      } else {
-        // console.log("Original Doc : ", docs);
-      }
-    }
-  );
-  // const a = User.find(
-  //   {
-  //     name: {
-  //       $gte: req.body.fileName.substring(
-  //         0,
-  //         req.body.fileName.lastIndexOf(".")
-  //       ),
-  //     },
-  //   })
-  // 	console.log(a);
+  const fullName = req.body.fileName;
+  const name = fullName.substring(0, fullName.lastIndexOf("."));
+
+  async function convertImage(src, dst) {
+    const image = sharp(src);
+    const resizedImage = await image.resize(32, 32).toFormat("jpg").toBuffer();
+    fs.writeFileSync(dst, resizedImage);
+  }
+  convertImage("./img/" + fullName, "./img/" + name + ".jpg");
+  if (fullName.substring(fullName.lastIndexOf(".") + 1) != "jpg") {
+    fs.unlink("./img/" + fullName, (err) => {
+      if (err) throw err;
+      console.log("文件已删除");
+    });
+  }
   res.send("success");
+});
+// User.findOneAndUpdate(
+//   {
+//     username: {
+//       $gte: name,
+//     },
+//   },
+//   { avatar: "http://47.93.214.2:3000/avatar/" + req.body.fileName },
+//   null,
+//   function (err, docs) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       // console.log("Original Doc : ", docs);
+//     }
+//   }
+// );
+//avatar
+app.get("/avatar/:id", (req, res) => {
+  const imagePath = path.join(__dirname, "img", req.params.id);
+  fs.stat(imagePath, (err, stats) => {
+    if (err) {
+      return res.sendFile(path.join(__dirname, "img","avatar.svg"));
+    }
+    res.sendFile(imagePath);
+  });
 });
 
 //info

@@ -14,7 +14,7 @@
           }}</span>
         <div class="meta">
           <div><span class="tag" v-for="tag in item.tags">{{ tag }} </span></div>
-          <div class="meta-minimal"><img :src="item.user.avatar" alt="avatar"><span>{{ item.user.name }} {{
+          <div class="meta-minimal"><img :src="`http://47.93.214.2:3000/avatar/${item.user.name}.jpg`" alt="avatar"><span>{{ item.user.name }} {{
             item.modified
           }}
               修改</span>&nbsp;{{ time(item.time) }}</div>
