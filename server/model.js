@@ -28,7 +28,8 @@ const Question = mongoose.model('Question', QuestionSchema);
 
 const ContentSchema = new mongoose.Schema({
     question_id: String,
-    content: String
+    content: String,
+    likes:Array
 });
 
 const Content = mongoose.model('Content', ContentSchema);

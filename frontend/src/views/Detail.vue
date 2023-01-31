@@ -10,8 +10,11 @@
             </div>
             <div class="post-warp" v-for="(item, index) in content" :key="item">
                 <div v-if="index == 1">{{ content.length - 1 }}个回答</div>
-                <div class="vote-cell"><img src="../assets/img/vote.svg" alt="">{{ store.state.info.votes }}<img
-                        src="../assets/img/vote.svg" alt=""></div>
+                <div class="vote-cell"><img @click="like(item._id, index)"
+                        :style="`filter:${(item.likes.indexOf(store.state.user.name) == -1) ? '' : 'invert(.5) sepia(1) saturate(5) hue-rotate(175deg)'}`"
+                        src="../assets/img/vote.svg" alt="">{{
+                            item.likes.length
+                        }}<img src="../assets/img/vote.svg" alt=""></div>
                 <div class="content-cell">
                     <Markdown :markdown="item.content"></Markdown>
                 </div>
@@ -27,7 +30,7 @@
 <script setup>
 import Editor from '../components/Editor.vue'
 import '../assets/css/reset.scss'
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import AskBtn from "../components/AskBtn.vue";
 import Markdown from '../components/Markdown.vue'
 import store from '../store/index'
@@ -35,7 +38,25 @@ import axios from "axios";
 import { useRouter } from 'vue-router';
 import swal from 'sweetalert'
 
+const like = (content_id, index) => {
+    if (!store.state.isAuth) swal("请先登录", "", "info");
+    else {
+        axios
+            .get(
+                `http://47.93.214.2:3000/api/like?id=${content_id}&user=${store.state.user.name}`
+            )
+            .then((res) => {
+                if (res.data == "您已经赞过了") {
+                    swal(res.data, "", "info");
+                } else {
+                    // document.querySelectorAll(".vote-cell")[index].children[0].style.filter =
+                    //     "invert(.5) sepia(1) saturate(5) hue-rotate(175deg)";
+                    content.value[index].likes.push(1)
+                }
+            });
 
+    }
+};
 const router = useRouter();
 const content = ref([]);
 let postContent = ref("");
@@ -62,7 +83,7 @@ const answer = () => {
     });
     swal('回答成功', '', 'success').then(window.location.reload())
 }
-axios.get('http://47.93.214.2:3000/api/info?id=' + id.value).then(res => store.commit('setInfo',res.data))
+axios.get('http://47.93.214.2:3000/api/info?id=' + id.value).then(res => store.commit('setInfo', res.data))
 </script>
 
 <style lang="scss" scoped>

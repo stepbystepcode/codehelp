@@ -183,6 +183,17 @@ app.get('/api/info', (req, res) => {
 
 })
 
+app.get('/api/like', async (req, res) => {
+	const { query } = req;
+	const content = await Content.findById(query.id);
+	if (content.likes.indexOf(query.user)!=-1) {
+		res.send('您已经赞过了');
+	} else {
+		content.likes.push(query.user);
+		await content.save();
+		res.send(content);
+	}
+})
 
 //listen on port
 app.listen(3000, () => {
