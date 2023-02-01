@@ -94,6 +94,7 @@ code {
 .container {
     .content {
         padding: 24px;
+        line-height: 2;
 
         .title-bar {
             display: flex;

@@ -4,7 +4,7 @@
     <div>
       <img class="logo" @click="router.push('/')" src="../assets/img/logo.svg" alt="logo">
       <img class="search-icon" src="../assets/img/search.svg" alt="">
-      <input type="text" name="" id="" placeholder="搜索问题...">
+      <input type="text" name="" id="" placeholder="搜索问题..." @keydown.enter="search()" v-model="input">
       <a v-if="!store.state.isAuth" @click="router.push('/users/login')">登录</a>
       <a v-if="!store.state.isAuth" @click="router.push('/users/signup')">注册</a>
       <img v-if="store.state.isAuth" @click="router.push('/users/' + store.state.user.name)" class="avatar"
@@ -16,8 +16,13 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { ref } from "vue"
 const router = useRouter()
 const store = useStore();
+const input = ref('');
+const search = () => {
+  router.push({ name: 'Search', query: { q: input.value } })
+}
 </script>
 
 <style scoped lang="scss">

@@ -8,6 +8,9 @@
         <RouterLink to="/questions" class="question">问题</RouterLink>
       </li>
       <li>
+        <RouterLink to="/tags" class="tags">标签</RouterLink>
+      </li>
+      <li>
         <RouterLink to="/users" class="user">用户</RouterLink>
       </li>
     </ul>
@@ -25,10 +28,14 @@ watch(route, () => {
       document.querySelector('.user').classList.add('router-link-active');
     else
       document.querySelector('.user').classList.remove('router-link-active');
-    if (window.location.href.includes('questions'))
+    if (window.location.href.includes('questions') || window.location.href.includes('search'))
       document.querySelector('.question').classList.add('router-link-active');
     else
       document.querySelector('.question').classList.remove('router-link-active');
+    if (window.location.href.includes('tags'))
+      document.querySelector('.tags').classList.add('router-link-active');
+    else
+      document.querySelector('.tags').classList.remove('router-link-active');
   }, 10);
 
 })

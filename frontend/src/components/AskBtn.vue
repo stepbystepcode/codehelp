@@ -2,7 +2,7 @@
     <RouterLink to="/questions/ask"><button>提问</button></RouterLink>
 </template>
 <script setup></script>
-<style lang="scss">
+<style lang="scss" scoped>
 a {
     display: flex;
     justify-content: end;
