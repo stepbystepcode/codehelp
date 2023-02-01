@@ -10,10 +10,12 @@
                 <span>请详细描述你的问题，至少20字。</span>
                 <Editor v-model="content" />
                 <br>
-                <span>空格键添加标签</span>
-                <div class="input fake">
+                <span>空格键添加标签，最多5个</span>
+                <div class="input"
+                    :style="tagfocus ? 'border: 1px solid #6bbbf7;box-shadow: 0 0 0 4px hsla(206, 100%, 40%, .15); ' : ''">
                     <div v-for="tag in tags" :key="tag" class="pill">#{{ tag }}</div>
-                    <input type="text" v-model="tag" @keydown.space.prevent="handleKeydown()" @keydown.delete="del()">
+                    <input type="text" v-model="tag" @keydown.space.prevent="handleKeydown()" @keydown.delete="del()"
+                        @focus="tagfocus = true" @blur="tagfocus = false">
                 </div>
                 <button @click="check()">提交</button>
             </div>
@@ -31,6 +33,7 @@ let title = ref("");
 let content = ref("");
 const tags = ref([]);
 const tag = ref("");
+const tagfocus = ref(false);
 const del = () => {
     if (tag.value == '') tags.value.pop()
 }
@@ -42,7 +45,10 @@ const handleKeydown = () => {
     tag.value = "";
 }
 const check = () => {
-    if (content.value == "") swal("请输入内容")
+    if (content.value.length < 20) swal("提问内容至少20字哦", "详细的描述有助于更好表达您的问题", "info")
+    else if (title.value == '') swal("请输入标题", "标题能让人一目了然您的问题", "info")
+    else if (tags.value.length == 0) swal("请添加几个标签", "添加合适的标签可以快速定位您的问题", "info")
+    else if (tags.value.length > 5) swal("最多添加5个标签", "", "info")
     else submint()
 }
 let submint = () => {
@@ -107,10 +113,6 @@ let submint = () => {
         input {
             padding: .6em .7em;
         }
-
-        //        .fake {
-        //           padding: 1px;
-        //      }
     }
 
     button {
