@@ -10,6 +10,7 @@
           <label for="password">密码</label>
           <input type="password" name="password" v-model="pw" required>
           <input @click.prevent="submit()" id="submit" value="登录" type="button">
+          <span style="display:flex;align-self:center">没有账户？<router-link to="/users/signup">去注册</router-link></span>
         </div>
       </form>
     </div>
