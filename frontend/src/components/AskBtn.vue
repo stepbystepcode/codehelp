@@ -18,7 +18,7 @@ a {
         margin: 0 2.3em;
         text-decoration: none;
         border-radius: 3px;
-
+        height: 3em;
         background: #0a95ff;
         color: #fff;
 

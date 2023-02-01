@@ -16,7 +16,8 @@
             item.title
           }}</span>
         <div class="meta">
-          <div><span class="tag" v-for="tag in item.tags">{{ tag }} </span></div>
+          <div><span v-for="tag in item.tags"><router-link class="tag" :to="`/questions/tagged/${tag}`">{{ tag }}
+              </router-link></span></div>
           <div class="meta-minimal"><img :src="`http://47.93.214.2:3000/avatar/${item.user.name}.jpg`"
               alt="avatar"><span>{{ item.user.name }} {{
                 item.modified
@@ -145,6 +146,16 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
             background: #e1ecf4;
             color: #39739d;
             font-size: .8em;
+            cursor: pointer;
+
+            &:hover {
+              color: #2c5877;
+              background-color: #d0e3f1;
+              border-color: #00000000;
+            }
+
+            text-decoration: none;
+
           }
         }
 
