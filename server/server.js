@@ -182,18 +182,47 @@ app.post("/api/upload", upload.single("avatar"), (req, res) => {
 
   async function convertImage(src, dst) {
     const image = sharp(src);
-    const resizedImage = await image.resize(32, 32).toFormat("jpg").toBuffer();
+    const resizedImage = await image
+      .resize({ width: 256, height: 256, withoutEnlargement: true })
+      .toFormat("webp")
+      .webp({ quality: 100 })
+      .toBuffer();
     fs.writeFileSync(dst, resizedImage);
   }
-  convertImage("./img/" + fullName, "./img/" + name + ".jpg");
-  if (fullName.substring(fullName.lastIndexOf(".") + 1) != "jpg") {
-    fs.unlink("./img/" + fullName, (err) => {
-      if (err) throw err;
-      console.log("文件已删除");
-    });
-  }
-  res.send("success");
+  convertImage("./img/" + fullName, "./img/" + name + ".webp").then((res) => {
+    if (fullName.substring(fullName.lastIndexOf(".") + 1) != "webp") {
+      fs.unlink("./img/" + fullName, (err) => {
+        if (err) throw err;
+      });
+    }
+  });
 });
+
+//上传文章图片
+const upload2 = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "./upload");
+    },
+    filename: function (req, file, cb) {
+      cb(null, req.body.fileName);
+    },
+  }),
+});
+app.post("/api/upload2", upload2.single("image"), (req, res) => {
+  res.send({ url: "http://47.93.214.2:3000/upload/" + req.body.fileName });
+});
+//upload req
+app.get("/upload/:id", (req, res) => {
+  const imagePath = path.join(__dirname, "upload", req.params.id);
+  fs.stat(imagePath, (err, stats) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.sendFile(imagePath);
+  });
+});
+
 // User.findOneAndUpdate(
 //   {
 //     username: {
@@ -215,7 +244,7 @@ app.get("/avatar/:id", (req, res) => {
   const imagePath = path.join(__dirname, "img", req.params.id);
   fs.stat(imagePath, (err, stats) => {
     if (err) {
-      return res.sendFile(path.join(__dirname, "img","avatar.svg"));
+      return res.sendFile(path.join(__dirname, "img", "avatar.svg"));
     }
     res.sendFile(imagePath);
   });
@@ -236,12 +265,31 @@ app.get("/api/info", (req, res) => {
 app.get("/api/like", async (req, res) => {
   const { query } = req;
   const content = await Content.findById(query.id);
-  if (content.likes.indexOf(query.user) != -1) {
-    res.send("您已经赞过了");
+  const lod = query.lod;
+  if (lod == 1) {
+    if (content.likes.indexOf(query.user) != -1) {
+      res.send({ info: "您已经赞过了" });
+    } else {
+      const index = content.dislikes.indexOf(query.user);
+      if (index != -1) {
+        content.dislikes.splice(index, 1);
+      }
+      content.likes.push(query.user);
+      await content.save();
+      res.send({ info: "like" });
+    }
   } else {
-    content.likes.push(query.user);
-    await content.save();
-    res.send(content);
+    if (content.dislikes.indexOf(query.user) != -1) {
+      res.send({ info: "您已经踩过了" });
+    } else {
+      const index = content.likes.indexOf(query.user);
+      if (index != -1) {
+        content.likes.splice(index, 1);
+      }
+      content.dislikes.push(query.user);
+      await content.save();
+      res.send({ info: "dislike" });
+    }
   }
 });
 

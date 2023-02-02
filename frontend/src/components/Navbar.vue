@@ -28,11 +28,11 @@ watch(route, () => {
       document.querySelector('.user').classList.add('router-link-active');
     else
       document.querySelector('.user').classList.remove('router-link-active');
-    if (window.location.href.includes('questions') || window.location.href.includes('search'))
+    if ((window.location.href.includes('questions') || window.location.href.includes('search')) && !window.location.href.includes('tagged'))
       document.querySelector('.question').classList.add('router-link-active');
     else
       document.querySelector('.question').classList.remove('router-link-active');
-    if (window.location.href.includes('tags'))
+    if (window.location.href.includes('tags') || window.location.href.includes('tagged'))
       document.querySelector('.tags').classList.add('router-link-active');
     else
       document.querySelector('.tags').classList.remove('router-link-active');
@@ -55,9 +55,10 @@ nav {
   z-index: 9;
 
   ul {
-    position: relative;
-    top: 24px;
-    width: 100%;
+    top: 74px;
+    width: 164px;
+    height: fit-content;
+    position: fixed;
 
     li {
       a {

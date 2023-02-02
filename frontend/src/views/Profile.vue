@@ -3,7 +3,7 @@
         <div class="content">
 
             <div class="info">
-                <img :src="`http://47.93.214.2:3000/avatar/${route.params.username}.jpg`" alt="">
+                <img :src="`http://47.93.214.2:3000/avatar/${route.params.username}.webp`" alt="">
                 <div class="meta">{{ route.params.username }}</div>
                 <div v-if="route.params.username == store.state.user.name"><button
                         @click="store.commit('logout')">退出登录</button><label for="upload">修改头像</label>
@@ -18,14 +18,14 @@
 import { ref } from "vue";
 import store from '../store/index'
 import axios from "axios";
-import { useRoute } from "vue-router";
+import { routerKey, useRoute } from "vue-router";
 const route = useRoute()
 let upload = (e) => {
     let file = e.target.files[0]; //获取文件信息
     let formData = new FormData();
     formData.append("fileName", store.state.user.name + '.' + e.target.files[0].name.split('.').pop());
     formData.append("avatar", file);
-    axios.post("http://47.93.214.2:3000/api/upload", formData).then(res => { console.log(res) })
+    axios.post("http://47.93.214.2:3000/api/upload", formData).then(res => { location.reload() })
 }
 </script>
 
@@ -70,7 +70,7 @@ let upload = (e) => {
 
     .info {
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
 
         .meta {
             display: flex;

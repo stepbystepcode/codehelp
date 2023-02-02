@@ -5,10 +5,11 @@
       <img class="logo" @click="router.push('/')" src="../assets/img/logo.svg" alt="logo">
       <img class="search-icon" src="../assets/img/search.svg" alt="">
       <input type="text" name="" id="" placeholder="搜索问题..." @keydown.enter="search()" v-model="input">
-      <a v-if="!store.state.isAuth" @click="router.push('/users/login')">登录</a>
-      <a v-if="!store.state.isAuth" @click="router.push('/users/signup')">注册</a>
+      <div><a v-if="!store.state.isAuth" @click="router.push('/users/login')">登录</a>
+        <a v-if="!store.state.isAuth" @click="router.push('/users/signup')">注册</a>
+      </div>
       <img v-if="store.state.isAuth" @click="router.push('/users/' + store.state.user.name)" class="avatar"
-        :src="`http://47.93.214.2:3000/avatar/${store.state.user.name}.jpg`" alt="avatar">
+        :src="`http://47.93.214.2:3000/avatar/${store.state.user.name}.webp`" alt="avatar">
     </div>
   </header>
 </template>
@@ -40,7 +41,7 @@ header {
 
   div {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     max-width: 1264px;
     width: 100%;

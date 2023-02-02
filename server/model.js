@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     set(val) {
       return require("bcrypt").hashSync(val, 10);
     },
-  }
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -38,6 +38,7 @@ const ContentSchema = new mongoose.Schema({
   question_id: String,
   content: String,
   likes: Array,
+  dislikes: Array,
 });
 
 const Content = mongoose.model("Content", ContentSchema);

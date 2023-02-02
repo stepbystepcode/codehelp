@@ -3,7 +3,7 @@
         <div class="content">
 
             <div v-for="user in users" :key="usesr"><router-link :to="`/users/${user.username}`"><img
-                        :src="`http://47.93.214.2:3000/avatar/${user.username}.jpg`" alt="">{{
+                        :src="`http://47.93.214.2:3000/avatar/${user.username}.webp`" alt="">{{
         user.username
                         }}</router-link></div>
 

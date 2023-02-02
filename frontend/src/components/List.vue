@@ -18,7 +18,7 @@
         <div class="meta">
           <div><span v-for="tag in item.tags"><router-link class="tag" :to="`/questions/tagged/${tag}`">{{ tag }}
               </router-link></span></div>
-          <div class="meta-minimal"><img :src="`http://47.93.214.2:3000/avatar/${item.user.name}.jpg`"
+          <div class="meta-minimal"><img :src="`http://47.93.214.2:3000/avatar/${item.user.name}.webp`"
               alt="avatar"><span>{{ item.user.name }} {{
                 item.modified
               }}
@@ -103,6 +103,11 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
     border-bottom: 1px solid #e3e6e8;
     padding: 16px;
 
+    @media only screen and (max-width: 980px) {
+      flex-direction: column;
+      padding: 16px 0;
+    }
+
     .info {
       color: #6a737c;
       width: 108px;
@@ -111,12 +116,21 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
       flex-direction: column;
       margin-right: 16px;
 
+      @media only screen and (max-width: 980px) {
+        flex-direction: row;
+        width: unset;
+      }
+
       span {
         padding: .4em;
       }
     }
 
     .content {
+      @media only screen and (max-width: 980px) {
+        padding-left: .4em;
+      }
+
       display: flex;
       flex-direction: column;
       flex-grow: 1;
