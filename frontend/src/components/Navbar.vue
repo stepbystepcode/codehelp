@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav v-show="store.state.showbar">
     <ul>
       <li>
         <RouterLink to="/">首页</RouterLink>
@@ -21,6 +21,7 @@
 import { RouterLink } from "vue-router";
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import store from '../store/index'
 const route = useRoute()
 watch(route, () => {
   setTimeout(() => {
@@ -46,7 +47,8 @@ watch(route, () => {
 <style lang="scss" scoped>
 nav {
   @media only screen and (max-width: 640px) {
-    display: none;
+    //display: none;
+    position: fixed;
   }
 
   min-width: 164px;
@@ -59,6 +61,13 @@ nav {
     width: 164px;
     height: fit-content;
     position: fixed;
+
+    @media only screen and (max-width: 640px) {
+      background-color: #fff;
+      box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05),
+        0 1px 4px hsla(0, 0%, 0%, 0.05),
+        0 2px 8px hsla(0, 0%, 0%, 0.05);
+    }
 
     li {
       a {

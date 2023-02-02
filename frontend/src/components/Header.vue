@@ -2,6 +2,7 @@
 
   <header>
     <div>
+      <div class="toggle" @click="store.commit('togglebar'); toggle()"><span></span></div>
       <img class="logo" @click="router.push('/')" src="../assets/img/logo.svg" alt="logo">
       <img class="search-icon" src="../assets/img/search.svg" alt="">
       <input type="text" name="" id="" placeholder="搜索问题..." @keydown.enter="search()" v-model="input">
@@ -17,12 +18,19 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 const router = useRouter()
 const store = useStore();
 const input = ref('');
 const search = () => {
   router.push({ name: 'Search', query: { q: input.value } })
+}
+onMounted(() => {
+  if (document.body.offsetWidth <= 640) store.commit('togglebar')
+})
+const toggle = () => {
+  document.querySelector(".toggle").classList.toggle('selected');
+  document.querySelector(".toggle").children[0].classList.toggle('open');
 }
 </script>
 
@@ -45,6 +53,73 @@ header {
     align-items: center;
     max-width: 1264px;
     width: 100%;
+
+    .toggle {
+      flex: 0 0 52px;
+      height: 52px;
+      justify-content: center;
+
+
+
+      span {
+        width: 16px;
+        height: 2px;
+        background-color: #525960;
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: '';
+          left: 0;
+          top: -5px;
+          transition: top, transform;
+          transition-duration: .1s;
+          transition-timing-function: ease-in-out;
+          width: 16px;
+          height: 2px;
+          background-color: #525960;
+        }
+
+        &::after {
+          position: absolute;
+          content: '';
+          left: 0;
+          top: 5px;
+          transition: top, transform;
+          transition-duration: .1s;
+          transition-timing-function: ease-in-out;
+          width: 16px;
+          height: 2px;
+          background-color: #525960;
+        }
+
+
+      }
+
+
+
+
+
+      @media only screen and (min-width: 640px) {
+        display: none;
+      }
+    }
+
+    .selected {
+      .open {
+        background-color: transparent !important;
+
+        &::before {
+          top: 0;
+          transform: rotate(-45deg);
+        }
+
+        &::after {
+          top: 0;
+          transform: rotate(45deg);
+        }
+      }
+    }
 
     a {
       border: 1px solid #7aa7c7;
