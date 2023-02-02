@@ -47,17 +47,18 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import swal from "sweetalert";
 
-
+const imgnum = ref(0);
 const imgAdd = (pos, file) => {
     console.log(file);
     const formData = new FormData()
-    formData.append("fileName", id.value + "_" + content.value.length + '.' + file.name.split('.').pop());
+    formData.append("fileName", id.value + "_" + content.value.length + "_" + imgnum.value + '.' + file.name.split('.').pop());
     formData.append('image', file)
 
     // 使用 axios 等工具发送图片到服务端
     axios.post('http://47.93.214.2:3000/api/upload2', formData).then(({ data }) => {
         const url = data.url
         postContent.value = postContent.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
+        imgnum.value++;
     })
 }
 const filterStyle = (index, which) => {

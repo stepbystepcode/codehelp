@@ -8,7 +8,7 @@
             <div class="box">
                 <span>你的问题是什么？</span>
                 <span>请详细描述你的问题，至少20字。</span>
-                <Editor v-model="content" />
+                <Editor v-model="content" @imgAdd="imgAdd" />
                 <br>
                 <span>空格键添加标签，最多5个</span>
                 <div class="input"
@@ -34,6 +34,21 @@ let content = ref("");
 const tags = ref([]);
 const tag = ref("");
 const tagfocus = ref(false);
+const imgnum = ref(0);
+const imgAdd = (pos, file) => {
+    console.log(file);
+    const formData = new FormData()
+    const time = Date.now()
+    formData.append("fileName", store.state.user.name + "_" + time + '.' + file.name.split('.').pop());
+    formData.append('image', file)
+
+    // 使用 axios 等工具发送图片到服务端
+    axios.post('http://47.93.214.2:3000/api/upload2', formData).then(({ data }) => {
+        const url = data.url
+        content.value = content.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
+        imgnum.value++;
+    })
+}
 const del = () => {
     if (tag.value == '') tags.value.pop()
 }
