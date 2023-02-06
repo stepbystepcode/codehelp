@@ -5,7 +5,8 @@
 <p align="center">
   <a href="https://raw.githubusercontent.com/stepbystepcode/codehelp/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="LICENSE"></a>
   <a href="https://github.com/topics/vue.js"><img src="https://img.shields.io/badge/language-vue-green.svg" alt="languange"></a>
-  [English](README.md) | [简体中文](README.zh_Hans.md)
+  
+  <a href="README.md">English</a> | <a href="README.zh_Hans.md">简体中文</a>
 </p>
 
 Codehelp 是一个为编程爱好者打造的交流平台，为用户提供了一个简单易用的问答系统。使用Codehelp，用户可以方便地寻找到感兴趣的问题并回答，也可以提出自己的问题等待他人回答。
