@@ -1,5 +1,3 @@
-# 代码交流论坛Codehelp
-
 <p align="center"><a href="#"><img width="300" src="http://47.93.214.2/assets/logo-b177e7a9.svg" alt="logo"></a></p>
 
 <p align="center">
