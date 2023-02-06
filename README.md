@@ -17,7 +17,6 @@ CodeHelp is a web-based platform for coding assistance and learning.
 ## Features
 
 - Code snippets library: Browse and search for code snippets in multiple programming languages. You can also contribute your own snippets to help others.
-- Code Playground: A web-based IDE that allows you to write and test code without having to install anything on your computer.
 - Community: Join a community of developers to ask questions, give and receive help, and learn from each other.
 
 ## Why choose CodeHelp?
