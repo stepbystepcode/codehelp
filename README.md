@@ -1,6 +1,6 @@
 # 代码交流论坛Codehelp
 
-<p align="center"><a href="#"><img width="100" src="http://47.93.214.2/assets/logo-b177e7a9.svg" alt="logo"></a></p>
+<p align="center"><a href="#"><img src="http://47.93.214.2/assets/logo-b177e7a9.svg" alt="logo"></a></p>
 <h2 align="center">Codehelp</h2>
 <p align="center">
   <a href="https://raw.githubusercontent.com/stepbystepcode/codehelp/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="LICENSE"></a>
