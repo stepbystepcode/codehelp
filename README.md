@@ -1,5 +1,14 @@
 # 代码交流论坛Codehelp
 
+<p align="center"><a href="#"><img width="100" src="[https://i.loli.net/2020/07/31/uRdaVf14yXmOIwK.png](http://47.93.214.2/assets/logo-b177e7a9.svg)" alt="logo"></a></p>
+<h2 align="center">Codehelp</h2>
+<p align="center">
+  <a href="https://raw.githubusercontent.com/stepbystepcode/codehelp/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="LICENSE"></a>
+  <a href="https://github.com/topics/vue.js"><img src="https://img.shields.io/badge/language-vue-green.svg" alt="languange"></a>
+</p>
+
+*Read this in other languages: [English](README.md), [简体中文](README.zh_Hans.md).*
+
 Codehelp 是一个为编程爱好者打造的交流平台，为用户提供了一个简单易用的问答系统。使用Codehelp，用户可以方便地寻找到感兴趣的问题并回答，也可以提出自己的问题等待他人回答。
 
 Codehelp 在它的基础上提供了强大的搜索功能，方便用户快速查找到需要的内容。为了让用户更好地使用 Codehelp，Codehelp 使用了最先进的技术，如果您是一名编程爱好者，不妨试试它，您一定会爱上它的。
