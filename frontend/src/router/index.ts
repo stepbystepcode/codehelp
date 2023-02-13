@@ -28,7 +28,7 @@ const routes = [
     name: "Ask",
     component: () => import("../views/Ask.vue"),
     beforeEnter: (from, to, next) => {
-      if (store.state.user.name) next();
+      if (store.state.user['name']) next();
       else next("/users/login");
     },
   },

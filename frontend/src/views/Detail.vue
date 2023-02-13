@@ -37,24 +37,21 @@
 </template>
 
 <script setup>
-import Editor from "../components/Editor.vue";
+//import Editor from "../components/Editor.vue";
 import "../assets/css/reset.scss";
-import { ref, onMounted } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 import AskBtn from "../components/AskBtn.vue";
-import Markdown from "../components/Markdown.vue";
+//import Markdown from "../components/Markdown.vue";
 import store from "../store/index";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import swal from "sweetalert";
-
 const imgnum = ref(0);
 const imgAdd = (pos, file) => {
     console.log(file);
     const formData = new FormData()
-    formData.append("fileName", id.value + "_" + content.value.length + "_" + imgnum.value + '.' + file.name.split('.').pop());
+    formData.append("fileName", `${id.value}_${content.value.length}_${imgnum.value}.${file.name.split('.').pop()}`);
     formData.append('image', file)
-
-    // 使用 axios 等工具发送图片到服务端
     axios.post('http://47.93.214.2:3000/api/upload2', formData).then(({ data }) => {
         const url = data.url
         postContent.value = postContent.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
@@ -118,9 +115,16 @@ const router = useRouter();
 const content = ref([]);
 let postContent = ref("");
 const id = ref(router.currentRoute.value.fullPath.split("/")[2]);
-axios.get("http://47.93.214.2:3000/api/detail?id=" + id.value).then((res) => {
-    content.value = res.data;
-});
+const getData = async () => {
+    const a = axios.get(`http://47.93.214.2:3000/api/detail?id=${id.value}`)//.then((res) => {
+    //content.value = res.data;
+    //});
+    const b = axios
+        .get("http://47.93.214.2:3000/api/info?id=" + id.value)
+    //.then((res) => store.commit("setInfo", res.data));
+    return Promise.all([a, b]);
+}
+getData().then(res => { content.value = res[0].data; store.commit("setInfo", res[1].data) })
 const check = () => {
     if (!store.state.isAuth) swal("请先登录").then(router.push("/users/login"));
     else if (postContent.value == "") swal("请输入内容");
@@ -141,9 +145,8 @@ const answer = () => {
     });
     swal("回答成功", "", "success")//.then(window.location.reload());
 };
-axios
-    .get("http://47.93.214.2:3000/api/info?id=" + id.value)
-    .then((res) => store.commit("setInfo", res.data));
+const Markdown = defineAsyncComponent(() => import("../components/Markdown.vue"))
+const Editor = defineAsyncComponent(() => import("../components/Editor.vue"))
 </script>
 
 <style lang="scss" scoped>

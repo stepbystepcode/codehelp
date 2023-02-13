@@ -5,6 +5,9 @@
 <script>
 import { marked } from 'marked';
 import hljs from 'highlight.js'
+// import { defineAsyncComponent } from "vue";
+// const hljs = defineAsyncComponent(() => import('highlight.js'))
+
 import 'highlight.js/styles/github-dark.css'
 
 export default {
@@ -33,4 +36,5 @@ export default {
 </script>
 
 <style>
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-warp">
+  <div class="list-warp" v-if="data">
     <div class="title-bar">
       <span>{{ pageTitle }}</span>
       <AskBtn />
@@ -58,9 +58,10 @@ const time = (after_time) => {
 };
 
 
-const pageTitle = ref('')
-axios("http://47.93.214.2:3000/api/questions").then(res => {
-  data.value = res.data.reverse();
+const pageTitle = ref('');
+(async () => {
+  const res = await axios("http://47.93.214.2:3000/api/questions");
+  data.value = res.data.reverse()
   if (window.location.href.includes('tagged')) {
     data.value = withTag.value
     pageTitle.value = route.params.tag
@@ -75,8 +76,7 @@ axios("http://47.93.214.2:3000/api/questions").then(res => {
   if (window.location.pathname === '/questions') {
     pageTitle.value = '全部问题'
   }
-  console.log(res.data);
-});
+})()
 </script>
 
 <style lang="scss" scoped>

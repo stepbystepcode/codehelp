@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Header from "./components/Header.vue";
 import Navbar from "./components/Navbar.vue";
 import { useRoute } from "vue-router";

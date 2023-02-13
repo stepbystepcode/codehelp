@@ -4,6 +4,8 @@
 </template>
 
 <script setup>
+import { mavonEditor } from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
 import { ref, reactive, onMounted } from 'vue'
 let codeStyle = ref('')
 onMounted(() => { codeStyle.value = 'github-dark' })
