@@ -52,7 +52,7 @@ const imgAdd = (pos, file) => {
     const formData = new FormData()
     formData.append("fileName", `${id.value}_${content.value.length}_${imgnum.value}.${file.name.split('.').pop()}`);
     formData.append('image', file)
-    axios.post('http://47.93.214.2:3000/api/upload2', formData).then(({ data }) => {
+    axios.post('https://www.codehelp.cn:3000/api/upload2', formData).then(({ data }) => {
         const url = data.url
         postContent.value = postContent.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
         imgnum.value++;
@@ -78,7 +78,7 @@ const like = (content_id, index, lod) => {
     else {
         axios
             .get(
-                `http://47.93.214.2:3000/api/like?id=${content_id}&user=${store.state.user.name}&lod=${lod}`
+                `https://www.codehelp.cn:3000/api/like?id=${content_id}&user=${store.state.user.name}&lod=${lod}`
             )
             .then((res) => {
                 function transferElement(arr1, arr2, name) {
@@ -116,11 +116,11 @@ const content = ref([]);
 let postContent = ref("");
 const id = ref(router.currentRoute.value.fullPath.split("/")[2]);
 const getData = async () => {
-    const a = axios.get(`http://47.93.214.2:3000/api/detail?id=${id.value}`)//.then((res) => {
+    const a = axios.get(`https://www.codehelp.cn:3000/api/detail?id=${id.value}`)//.then((res) => {
     //content.value = res.data;
     //});
     const b = axios
-        .get("http://47.93.214.2:3000/api/info?id=" + id.value)
+        .get("https://www.codehelp.cn:3000/api/info?id=" + id.value)
     //.then((res) => store.commit("setInfo", res.data));
     return Promise.all([a, b]);
 }
@@ -138,7 +138,7 @@ const answer = () => {
         time: new Date().getTime(),
         votes: 0,
     });
-    axios.post("http://47.93.214.2:3000/api/answer", json, {
+    axios.post("https://www.codehelp.cn:3000/api/answer", json, {
         headers: {
             "Content-Type": "application/json",
         },

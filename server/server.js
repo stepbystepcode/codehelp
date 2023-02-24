@@ -1,6 +1,25 @@
 //Express app
 const express = require("express");
 const app = express();
+const zlib = require('zlib');
+const compression = require('compression');
+const brotli = require('brotli');
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      // 不对特定的请求进行压缩
+      return false;
+    }
+
+    return compression.filter(req, res);
+  },
+  brotli: {
+    params: {
+      [zlib.constants.BROTLI_PARAM_QUALITY]: 11, // 设置压缩质量
+    },
+    mode: zlib.constants.BROTLI_MODE_TEXT, // 设置压缩模式
+  }
+}));
 
 //jwt token auth
 const jwt = require("jsonwebtoken");
@@ -15,6 +34,13 @@ const axios = require("axios");
 const cors = require("cors");
 
 //Create app
+const fs = require("fs");
+const https = require("https");
+const httpsOption = {
+	            key : fs.readFileSync("/root/private.key"),
+	            cert: fs.readFileSync("/root/fullchain.crt")
+}
+const server = https.createServer(httpsOption, app)
 app.use(cors());
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -161,7 +187,6 @@ app.post("/api/answer", async (req, res) => {
 
 //upload & avatar
 const sharp = require("sharp");
-const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 
@@ -210,7 +235,7 @@ const upload2 = multer({
   }),
 });
 app.post("/api/upload2", upload2.single("image"), (req, res) => {
-  res.send({ url: "http://47.93.214.2:3000/upload/" + req.body.fileName });
+  res.send({ url: "https://www.codehelp.cn:3000/upload/" + req.body.fileName });
 });
 //upload req
 app.get("/upload/:id", (req, res) => {
@@ -294,6 +319,6 @@ app.get("/api/like", async (req, res) => {
 });
 
 //listen on port
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("listening on port 3000.");
 });

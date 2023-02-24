@@ -3,7 +3,7 @@
         <div class="content">
 
             <div class="info">
-                <img :src="`http://47.93.214.2:3000/avatar/${route.params.username}.webp`" alt="">
+                <img :src="`https://www.codehelp.cn:3000/avatar/${route.params.username}.webp`" alt="">
                 <div class="meta">{{ route.params.username }}</div>
                 <div v-if="route.params.username == store.state.user.name"><button
                         @click="store.commit('logout')">退出登录</button><label for="upload">修改头像</label>
@@ -25,7 +25,7 @@ let upload = (e) => {
     let formData = new FormData();
     formData.append("fileName", store.state.user.name + '.' + e.target.files[0].name.split('.').pop());
     formData.append("avatar", file);
-    axios.post("http://47.93.214.2:3000/api/upload", formData).then(res => { location.reload() })
+    axios.post("https://www.codehelp.cn:3000/api/upload", formData).then(res => { location.reload() })
 }
 </script>
 

@@ -5,7 +5,7 @@ const MONGOOSE_URL = process.env.MONGOOSE_URL;
 const MONGOOSE_USER = process.env.MONGOOSE_USER;
 const MONGOOSE_PASS = process.env.MONGOOSE_PASS;
 mongoose.connect(MONGOOSE_URL, {
-  authSource: "codehelp",
+  authSource: "admin",
   user: MONGOOSE_USER,
   pass: MONGOOSE_PASS,
 });

@@ -35,7 +35,7 @@ let submit = () => {
     token: savetoken.value
   };
   if (un.value != "" && pw.value != "") {
-    axios.post('http://47.93.214.2:3000/api/login', json, {
+    axios.post('https://www.codehelp.cn:3000/api/login', json, {
       headers: {
         'Content-Type': 'application/json'
       }

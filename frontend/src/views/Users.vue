@@ -3,7 +3,7 @@
         <div class="content">
 
             <div v-for="user in users" :key="usesr"><router-link :to="`/users/${user.username}`"><img
-                        :src="`http://47.93.214.2:3000/avatar/${user.username}.webp`" alt="">{{
+                        :src="`https://www.codehelp.cn:3000/avatar/${user.username}.webp`" alt="">{{
         user.username
                         }}</router-link></div>
 
@@ -16,7 +16,7 @@
 import axios from 'axios';
 import { ref } from 'vue';
 let users = ref([]);
-axios.get('http://47.93.214.2:3000/api/users').then(res => users.value = res.data);
+axios.get('https://www.codehelp.cn:3000/api/users').then(res => users.value = res.data);
 </script>
 
 <style lang="scss" scoped>

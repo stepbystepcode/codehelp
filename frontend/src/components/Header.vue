@@ -10,7 +10,7 @@
         <a v-if="!store.state.isAuth" @click="router.push('/users/signup')">注册</a>
       </div>
       <img v-if="store.state.isAuth" @click="router.push('/users/' + store.state.user.name)" class="avatar"
-        :src="`http://47.93.214.2:3000/avatar/${store.state.user.name}.webp`" alt="avatar">
+        :src="`https://www.codehelp.cn:3000/avatar/${store.state.user.name}.webp`" alt="avatar">
     </div>
   </header>
 </template>

@@ -43,7 +43,7 @@ const imgAdd = (pos, file) => {
     formData.append('image', file)
 
     // 使用 axios 等工具发送图片到服务端
-    axios.post('http://47.93.214.2:3000/api/upload2', formData).then(({ data }) => {
+    axios.post('https://www.codehelp.cn:3000/api/upload2', formData).then(({ data }) => {
         const url = data.url
         content.value = content.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
         imgnum.value++;
@@ -79,7 +79,7 @@ let submint = () => {
             time: new Date().getTime(),
             votes: 0
         });
-        axios.post('http://47.93.214.2:3000/api/ask', json, {
+        axios.post('https://www.codehelp.cn:3000/api/ask', json, {
             headers: {
                 'Content-Type': 'application/json'
             }

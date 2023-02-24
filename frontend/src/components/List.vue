@@ -18,7 +18,7 @@
         <div class="meta">
           <div><span v-for="tag in item.tags"><router-link class="tag" :to="`/questions/tagged/${tag}`">{{ tag }}
               </router-link></span></div>
-          <div class="meta-minimal"><img :src="`http://47.93.214.2:3000/avatar/${item.user.name}.webp`"
+          <div class="meta-minimal"><img :src="`https://www.codehelp.cn:3000/avatar/${item.user.name}.webp`"
               alt="avatar"><span>{{ item.user.name }} {{
                 item.modified
               }}
@@ -60,7 +60,7 @@ const time = (after_time) => {
 
 const pageTitle = ref('');
 (async () => {
-  const res = await axios("http://47.93.214.2:3000/api/questions");
+  const res = await axios("https://www.codehelp.cn:3000/api/questions");
   data.value = res.data.reverse()
   if (window.location.href.includes('tagged')) {
     data.value = withTag.value
