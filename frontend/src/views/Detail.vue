@@ -12,13 +12,13 @@
 
                         <input type="radio" :name="item._id" :id="`${item._id}_a`">
                         <label :for="`${item._id}_a`" @click="like(item._id, index, 1)">
-                            <img :style="filterStyle(index, 1)" src="../assets/img/vote.svg" alt="like" /></label>
+                            <img :style="filterStyle(index, 1)" src="https://img1.imgtp.com/2023/02/24/OD5pahfR.svg" alt="like" /></label>
                         {{
                             item.likes.length - item.dislikes.length
                         }}
                         <input type="radio" :name="item._id" :id="`${item._id}_b`">
                         <label :for="`${item._id}_b`" @click="like(item._id, index, 0)">
-                            <img :style="filterStyle(index, 0)" src="../assets/img/vote.svg" alt="dislike" /></label>
+                            <img :style="filterStyle(index, 0)" src="https://img1.imgtp.com/2023/02/24/OD5pahfR.svg" alt="dislike" /></label>
 
                     </div>
                     <div class="content-cell">
@@ -41,7 +41,7 @@
 import "../assets/css/reset.scss";
 import { ref, defineAsyncComponent } from "vue";
 import AskBtn from "../components/AskBtn.vue";
-//import Markdown from "../components/Markdown.vue";
+import Markdown from "../components/Markdown.vue";
 import store from "../store/index";
 import axios from "axios";
 import { useRouter } from "vue-router";
@@ -145,7 +145,7 @@ const answer = () => {
     });
     swal("回答成功", "", "success")//.then(window.location.reload());
 };
-const Markdown = defineAsyncComponent(() => import("../components/Markdown.vue"))
+//const Markdown = defineAsyncComponent(() => import("../components/Markdown.vue"))
 const Editor = defineAsyncComponent(() => import("../components/Editor.vue"))
 </script>
 
