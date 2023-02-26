@@ -38,13 +38,14 @@ const imgnum = ref(0);
 const imgAdd = (pos, file) => {
     console.log(file);
     const formData = new FormData()
-    const time = Date.now()
-    formData.append("fileName", store.state.user.name + "_" + time + '.' + file.name.split('.').pop());
-    formData.append('image', file)
-
-    // 使用 axios 等工具发送图片到服务端
-    axios.post('https://www.codehelp.cn:3000/api/upload2', formData).then(({ data }) => {
-        const url = data.url
+formData.append("image", file);
+    axios.post('https://www.imgtp.com/api/upload', formData, {
+        headers: {
+            'token': '1fee373d94bf7bf2b87fcbf756b716d2',
+            'content-type': 'multipart/form-data'
+        }
+    }).then(({ data }) => {
+        const url = data.data.url;
         content.value = content.value.replace(/!\[[^\]]+\]\([^)]+\)/, `![](${url})`);
         imgnum.value++;
     })
