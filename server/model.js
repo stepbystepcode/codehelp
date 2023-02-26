@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
       return require("bcrypt").hashSync(val, 10);
     },
   },
+  avatar: String,
 });
 
 const User = mongoose.model("User", UserSchema);

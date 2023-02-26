@@ -265,16 +265,32 @@ app.get("/upload/:id", (req, res) => {
 //   }
 // );
 //avatar
-app.get("/avatar/:id", (req, res) => {
-  const imagePath = path.join(__dirname, "img", req.params.id);
-  fs.stat(imagePath, (err, stats) => {
-    if (err) {
-      return res.sendFile(path.join(__dirname, "img", "avatar.svg"));
+// app.get("/avatar/:id", (req, res) => {
+//   const imagePath = path.join(__dirname, "img", req.params.id);
+//   fs.stat(imagePath, (err, stats) => {
+//     if (err) {
+//       return res.sendFile(path.join(__dirname, "img", "avatar.svg"));
+//     }
+//     res.sendFile(imagePath);
+//   });
+// });
+app.post("/api/avatar", (req, res) => {
+  console.log(req.body.name);
+  console.log(req.body.data);
+  User.findOneAndUpdate(
+    { username: req.body.name }, // 筛选条件
+    { $set: { avatar: req.body.data } }, // 更新操作
+    { new: true }, // 返回更新后的文档
+    (err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(user);
+      }
     }
-    res.sendFile(imagePath);
-  });
+  );
+  res.send("ok");
 });
-
 //info
 app.get("/api/info", (req, res) => {
   const { query } = req;

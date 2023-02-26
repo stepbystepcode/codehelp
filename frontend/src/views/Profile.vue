@@ -3,7 +3,7 @@
         <div class="content">
 
             <div class="info">
-                <img :src="`https://www.codehelp.cn:3000/avatar/${route.params.username}.webp`" alt="">
+                <img :src="`https://img1.imgtp.com/${store.state.user.avatar}`" alt="">
                 <div class="meta">{{ route.params.username }}</div>
                 <div v-if="route.params.username == store.state.user.name"><button
                         @click="store.commit('logout')">退出登录</button><label for="upload">修改头像</label>
@@ -23,9 +23,16 @@ const route = useRoute()
 let upload = (e) => {
     let file = e.target.files[0]; //获取文件信息
     let formData = new FormData();
-    formData.append("fileName", store.state.user.name + '.' + e.target.files[0].name.split('.').pop());
-    formData.append("avatar", file);
-    axios.post("https://www.codehelp.cn:3000/api/upload", formData).then(res => { location.reload() })
+    formData.append("image", file);
+    axios.post('https://www.imgtp.com/api/upload', formData, {
+        headers: {
+            'token': '1fee373d94bf7bf2b87fcbf756b716d2',
+            'content-type': 'multipart/form-data'
+        }
+    }).then(res => {
+        console.log(res.data.data)
+        axios.post('https://www.codehelp.cn:3000/api/avatar', { name: store.state.user.name, data: res.data.data.url.slice(23) }).then(res => console.log(res.data)/*location.reload()*/)
+    })
 }
 </script>
 

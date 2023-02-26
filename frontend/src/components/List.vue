@@ -18,7 +18,7 @@
         <div class="meta">
           <div><span v-for="tag in item.tags"><router-link class="tag" :to="`/questions/tagged/${tag}`">{{ tag }}
               </router-link></span></div>
-          <div class="meta-minimal"><img :src="`https://www.codehelp.cn:3000/avatar/${item.user.name}.webp`"
+          <div class="meta-minimal"><img :src="`https://img1.imgtp.com/${item.user.avatar}`"
               alt="avatar"><span>{{ item.user.name }} {{
                 item.modified
               }}
