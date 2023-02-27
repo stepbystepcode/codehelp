@@ -2,8 +2,8 @@
     <div class="container">
         <div class="content">
             <div class="title-bar">
-                <span>{{ store.state.info.title }}</span>
                 <AskBtn />
+                <span>{{ store.state.info.title }}</span>
             </div>
             <div class="info">{{ store.state.info.views }}次浏览</div>
             <template v-for="(item, index) in content" :key="item">
@@ -162,9 +162,12 @@ code {
     .content {
         padding: 24px;
         line-height: 2;
-        width: 100%;
+	width: 100vw;
+	box-sizing: border-box;
 
         .title-bar {
+	    flex-direction: row-reverse;
+	    flex-wrap: wrap;
             display: flex;
             justify-content: space-between;
 
@@ -181,6 +184,7 @@ code {
             .vote-cell {
                 display: flex;
                 flex-direction: column;
+    flex-grow: 1;
                 padding-right: 16px;
                 align-items: center;
 
@@ -200,8 +204,9 @@ code {
 
             .content-cell {
                 display: flex;
-                flex: 1;
                 flex-direction: column;
+    flex-grow: 0;
+overflow:hidden;
                 width: 100%;
             }
         }
