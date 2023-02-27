@@ -1,25 +1,8 @@
 //Express app
 const express = require("express");
 const app = express();
-const zlib = require('zlib');
 const compression = require('compression');
-const brotli = require('brotli');
-app.use(compression({
-  filter: (req, res) => {
-    if (req.headers['x-no-compression']) {
-      // 不对特定的请求进行压缩
-      return false;
-    }
-
-    return compression.filter(req, res);
-  },
-  brotli: {
-    params: {
-      [zlib.constants.BROTLI_PARAM_QUALITY]: 11, // 设置压缩质量
-    },
-    mode: zlib.constants.BROTLI_MODE_TEXT, // 设置压缩模式
-  }
-}));
+app.use(compression());
 
 //jwt token auth
 const jwt = require("jsonwebtoken");
@@ -129,7 +112,13 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.get("/api/questions", async (req, res) => {
-  const questions = await Question.find();
+  const { query } = req;
+  let questions;
+  if (query.user == undefined) {
+    questions = await Question.find();
+  } else {
+    questions = await Question.find({"user.name":query.user});
+  }
   res.send(questions);
 });
 
@@ -185,58 +174,6 @@ app.post("/api/answer", async (req, res) => {
   );
 });
 
-//upload & avatar
-const sharp = require("sharp");
-const multer = require("multer");
-const path = require("path");
-
-const { resourceLimits } = require("worker_threads");
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "./img");
-    },
-    filename: function (req, file, cb) {
-      cb(null, req.body.fileName);
-    },
-  }),
-});
-app.post("/api/upload", upload.single("avatar"), (req, res) => {
-  const fullName = req.body.fileName;
-  const name = fullName.substring(0, fullName.lastIndexOf("."));
-
-  async function convertImage(src, dst) {
-    const image = sharp(src);
-    const resizedImage = await image
-      .resize({ width: 256, height: 256, withoutEnlargement: true })
-      .toFormat("webp")
-      .webp({ quality: 100 })
-      .toBuffer();
-    fs.writeFileSync(dst, resizedImage);
-  }
-  convertImage("./img/" + fullName, "./img/" + name + ".webp").then((res) => {
-    if (fullName.substring(fullName.lastIndexOf(".") + 1) != "webp") {
-      fs.unlink("./img/" + fullName, (err) => {
-        if (err) throw err;
-      });
-    }
-  });
-});
-
-//上传文章图片
-const upload2 = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "./upload");
-    },
-    filename: function (req, file, cb) {
-      cb(null, req.body.fileName);
-    },
-  }),
-});
-app.post("/api/upload2", upload2.single("image"), (req, res) => {
-  res.send({ url: "https://www.codehelp.cn:3000/upload/" + req.body.fileName });
-});
 //upload req
 app.get("/upload/:id", (req, res) => {
   const imagePath = path.join(__dirname, "upload", req.params.id);
